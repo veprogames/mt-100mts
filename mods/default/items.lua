@@ -1,3 +1,5 @@
+Minerals = dofile(minetest.get_modpath("default").."/minerals.lua")
+
 local function get_tool_capabilities(tier)
     local times = {}
 
@@ -38,7 +40,8 @@ minetest.register_item(":", {
 
 for i=1,100 do
     local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
-    
+    col = Minerals.get_color(i)
+
     -- Pickaxe
     local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..col..")"
     minetest.register_craftitem("default:pickaxe"..i, {

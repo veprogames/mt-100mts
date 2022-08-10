@@ -1,3 +1,5 @@
+Minerals = dofile(minetest.get_modpath("default").."/minerals.lua")
+
 minetest.register_node("default:dirt", {
     description="Dirt",
     tiles={"default_dirt.png"},
@@ -6,7 +8,7 @@ minetest.register_node("default:dirt", {
 })
 
 for i=1,100 do
-    local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
+    local col = Minerals.get_color(i)
     minetest.register_node("default:mineral"..i, {
         description="Mineral "..i,
         tiles={"default_stone.png^(default_ore.png^[multiply:"..col..")"},
