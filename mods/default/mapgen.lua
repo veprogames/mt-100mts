@@ -14,7 +14,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                     if y >= -1 then
                         cont = c_dirt
                     else
-                        cont = minetest.get_content_id("default:mineral"..math.random(1, 99))
+                        local tier = math.floor(1 - y / 20 + math.random() * 0.15)
+                        if math.random() < 0.02 then
+                            tier = tier + math.random(2, 4)
+                        end
+                        cont = minetest.get_content_id("default:mineral"..tier)
                     end
                     data[idx] = cont
                 end

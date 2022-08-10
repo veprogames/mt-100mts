@@ -30,7 +30,7 @@ minetest.register_item(":", {
         groupcaps = {
             cracky = {
                 uses = 0,
-                times = {[0] = 0.7, [1] = 1, [2] = 4, [3] = 16}
+                times = {[0] = 0.7, [1] = 1.4, [2] = 4, [3] = 16}
             }
         }
     }

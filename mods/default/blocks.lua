@@ -1,12 +1,14 @@
 minetest.register_node("default:dirt", {
     description="Dirt",
     tiles={"dirt.png"},
-    groups={cracky=0}
+    groups={cracky=0},
+    drop={}
 })
 
 minetest.register_node("default:stone", {
     description="Stone",
-    tiles={"stone.png"}
+    tiles={"stone.png"},
+    drop={}
 })
 
 for i=1,100 do
@@ -14,6 +16,7 @@ for i=1,100 do
     minetest.register_node("default:mineral"..i, {
         description="Mineral "..i,
         tiles={"stone.png^[multiply:"..col},
-        groups={cracky=i}
+        groups={cracky=i},
+        drop={}
     })
 end
