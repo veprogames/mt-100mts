@@ -38,9 +38,8 @@ minetest.register_item(":", {
     }
 })
 
-for i=1,100 do
-    local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
-    col = Minerals.get_color(i)
+for i = 1, 100 do
+    local col = Minerals.get_color(i)
 
     -- Pickaxe
     local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..col..")"

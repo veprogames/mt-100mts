@@ -7,7 +7,7 @@ minetest.register_node("default:dirt", {
     drop={}
 })
 
-for i=1,100 do
+for i = 1, 100 do
     local col = Minerals.get_color(i)
     minetest.register_node("default:mineral"..i, {
         description="Mineral "..i,
