@@ -38,6 +38,8 @@ minetest.register_item(":", {
 
 for i=1,100 do
     local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
+    
+    -- Pickaxe
     local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..col..")"
     minetest.register_craftitem("default:pickaxe"..i, {
         description="Pickaxe "..i,
@@ -47,10 +49,35 @@ for i=1,100 do
         tool_capabilities = get_tool_capabilities(i)
     })
 
+    -- Drop (like Lumps, Nuggets or Shards)
     image = "default_lump.png^[multiply:"..col
     minetest.register_craftitem("default:mineral_drop"..i, {
         description="Drop "..i,
         wield_image=image,
         inventory_image=image
+    })
+
+    -- Item used to craft Pickaxes
+    image = "default_ingot.png^[multiply:"..col
+    local mineral_drop = "default:mineral_drop"..i
+    minetest.register_craftitem("default:mineral_item"..i, {
+        description="Ingot "..i,
+        wield_image=image,
+        inventory_image=image
+    })
+    minetest.register_craft({
+        type = "shapeless",
+        output = "default:mineral_item"..i,
+        recipe = {mineral_drop, mineral_drop, mineral_drop, mineral_drop, mineral_drop}
+    })
+
+    -- Pickaxe Recipe
+    local mineral_item = "default:mineral_item"..i
+    minetest.register_craft({
+        type = "shaped",
+        output = "default:pickaxe"..i,
+        recipe = {
+            {mineral_item, mineral_item, mineral_item}
+        }
     })
 end
