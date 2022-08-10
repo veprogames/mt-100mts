@@ -15,7 +15,7 @@ for i=1,100 do
     local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
     minetest.register_node("default:mineral"..i, {
         description="Mineral "..i,
-        tiles={"stone.png^[multiply:"..col},
+        tiles={"stone.png^(ore.png^[multiply:"..col..")"},
         groups={cracky=i},
         drop={}
     })

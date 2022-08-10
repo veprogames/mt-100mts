@@ -38,10 +38,12 @@ minetest.register_item(":", {
 
 for i=1,100 do
     local col = string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
+    local image = "pickaxe_base.png^(pickaxe_head.png^[multiply:"..col..")"
     minetest.register_craftitem("default:pickaxe"..i, {
         description="Pickaxe "..i,
-        wield_image="pickaxe.png^[multiply:"..col,
-        inventory_image="pickaxe.png^[multiply:"..col,
+        wield_scale = {x=1.4, y=1.4, z=1.4},
+        wield_image=image,
+        inventory_image=image,
         tool_capabilities = get_tool_capabilities(i)
     })
 end
