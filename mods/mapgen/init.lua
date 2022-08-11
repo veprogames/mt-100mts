@@ -24,6 +24,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                         if math.random() < 0.04 then
                             tier = tier + math.random(2, 4)
                         end
+                        tier = math.min(100, tier)
                         cont = minetest.get_content_id("default:mineral"..tier)
                     end
                     data[idx] = cont
