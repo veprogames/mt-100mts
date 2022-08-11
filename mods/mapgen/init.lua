@@ -1,5 +1,6 @@
 local c_dirt = minetest.get_content_id("default:dirt")
 local c_active_coal = minetest.get_content_id("minelights:active_coal")
+local c_wood = minetest.get_content_id("default:wood")
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
     local voxelmanip, emin, emax = minetest.get_mapgen_object("voxelmanip")
@@ -16,6 +17,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                         cont = c_dirt
                     elseif y < -5 and math.random() < 0.015 then
                         cont = c_active_coal
+                    elseif y > -100 and math.random() < 0.03 * (1 - y / 100.0) then
+                        cont = c_wood
                     else
                         local tier = math.floor(1 - y / 20 + math.random() * 0.7)
                         if math.random() < 0.04 then

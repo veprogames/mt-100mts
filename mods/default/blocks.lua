@@ -7,6 +7,17 @@ minetest.register_node("default:dirt", {
     drop={}
 })
 
+minetest.register_node("default:wood", {
+    description="Wood Block",
+    tiles={"default_wood.png"},
+    groups={choppy = 1},
+    drop={
+        items = {
+            {items = {"default:stick 2"}}
+        }
+    }
+})
+
 for i = 1, 100 do
     local col = Minerals.get_color(i)
     minetest.register_node("default:mineral"..i, {

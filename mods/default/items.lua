@@ -33,9 +33,19 @@ minetest.register_item(":", {
             cracky = {
                 uses = 0,
                 times = {[0] = 0.7, [1] = 1.4, [2] = 4, [3] = 16}
+            },
+            choppy = {
+                uses = 0,
+                times = {[1] = 4}
             }
         }
     }
+})
+
+minetest.register_craftitem("default:stick", {
+    description = "Stick",
+    wield_image = "default_stick.png",
+    inventory_image = "default_stick.png"
 })
 
 for i = 1, 100 do
@@ -79,7 +89,9 @@ for i = 1, 100 do
         type = "shaped",
         output = "default:pickaxe"..i,
         recipe = {
-            {mineral_item, mineral_item, mineral_item}
+            {mineral_item, mineral_item, mineral_item},
+            {"", "default:stick", ""},
+            {"", "default:stick", ""}
         }
     })
 end
