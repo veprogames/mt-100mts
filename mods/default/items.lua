@@ -16,6 +16,10 @@ local function get_tool_capabilities(tier)
             cracky = {
                 uses = 1000,
                 times = times
+            },
+            choppy = {
+                uses = 1000,
+                times = {[1] = math.max(0.25, 5 * 0.9 ^ tier)}
             }
         }
     }
@@ -24,19 +28,19 @@ end
 minetest.register_item(":", {
     type="none",
     wield_image = "hand.png",
-    wield_scale = {x = 0.65, y = 1, z = 1},
+    wield_scale = {x = 0.55, y = 0.95, z = 5},
     range = 4,
     tool_capabilities = {
         full_punch_interval = 0.9,
         max_drop_level = 0,
         groupcaps = {
+            choppy = {
+                uses = 0,
+                times = {[1] = 6}
+            },
             cracky = {
                 uses = 0,
                 times = {[0] = 0.7, [1] = 1.4, [2] = 4, [3] = 16}
-            },
-            choppy = {
-                uses = 0,
-                times = {[1] = 4}
             }
         }
     }
