@@ -45,7 +45,8 @@ minetest.register_item(":", {
 minetest.register_craftitem("default:stick", {
     description = "Stick",
     wield_image = "default_stick.png",
-    inventory_image = "default_stick.png"
+    inventory_image = "default_stick.png",
+    stack_max = 9999
 })
 
 for i = 1, 100 do
@@ -66,7 +67,8 @@ for i = 1, 100 do
     minetest.register_craftitem("default:mineral_drop"..i, {
         description="Drop "..i,
         wield_image=image,
-        inventory_image=image
+        inventory_image=image,
+        stack_max = 9999
     })
 
     -- Item used to craft Pickaxes
@@ -75,7 +77,8 @@ for i = 1, 100 do
     minetest.register_craftitem("default:mineral_item"..i, {
         description="Ingot "..i,
         wield_image=image,
-        inventory_image=image
+        inventory_image=image,
+        stack_max = 9999
     })
     minetest.register_craft({
         type = "shapeless",
