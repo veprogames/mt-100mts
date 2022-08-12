@@ -2,14 +2,21 @@ local c_dirt = minetest.get_content_id("default:dirt")
 local c_active_coal = minetest.get_content_id("minelights:active_coal")
 local c_bedrock = minetest.get_content_id("bedrock:bedrock")
 local c_wood = minetest.get_content_id("default:wood")
+local c_magma = minetest.get_content_id("liquids:magma_still")
 
 local chances = {
     {content = c_active_coal, ymax = -5, ymin = -2000, chance = 0.015},
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
+
     {content = c_bedrock, ymax = -50, ymin = -250, chance = 0.02},
     {content = c_bedrock, ymax = -250, ymin = -1000, chance = 0.04},
     {content = c_bedrock, ymax = -1000, ymin = -1500, chance = 0.08},
-    {content = c_bedrock, ymax = -1500, ymin = -2000, chance = 0.2}
+    {content = c_bedrock, ymax = -1500, ymin = -2000, chance = 0.2},
+
+    {content = c_magma, ymax = -250, ymin = -400, chance = 0.003},
+    {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
+    {content = c_magma, ymax = -801, ymin = -1600, chance = 0.02},
+    {content = c_magma, ymax = -1601, ymin = -2022, chance = 0.04}
 }
 
 local function get_content_from_chances(y)

@@ -1,0 +1,45 @@
+minetest.register_node("liquids:magma_still", {
+    description = "Magma",
+    drawtype = "liquid",
+    tiles = {"liquids_magma.png"},
+    paramtype = "light",
+    liquidtype = "source",
+    post_effect_color = {r = 192, g = 0, b = 0, a = 192},
+    liquid_range = 3,
+    liquid_viscosity = 7,
+    liquid_alternative_flowing = "liquids:magma_flowing",
+    liquid_alternative_source = "liquids:magma_still",
+    pointable = false,
+    diggable = false,
+    buildable_to = true,
+    walkable = false,
+    is_ground_content = false,
+    light_source = 4,
+    damage_per_second = 2
+})
+
+minetest.register_node("liquids:magma_flowing", {
+    description = "Magma (Flowing)",
+    drawtype = "flowingliquid",
+    tiles = {"liquids_magma.png"},
+    special_tiles = {
+        {name = "liquids_magma.png", backface_culling = false},
+        {name = "liquids_magma.png", backface_culling = false},
+    },
+    use_texture_alpha = "blend",
+    paramtype = "light",
+    paramtype2 = "flowingliquid",
+    liquidtype = "flowing",
+    post_effect_color = {r = 192, g = 0, b = 0, a = 192},
+    liquid_range = 3,
+    liquid_viscosity = 7,
+    liquid_alternative_flowing = "liquids:magma_flowing",
+    liquid_alternative_source = "liquids:magma_still",
+    pointable = false,
+    diggable = false,
+    buildable_to = true,
+    walkable = false,
+    is_ground_content = false,
+    light_source = 4,
+    damage_per_second = 2
+})
