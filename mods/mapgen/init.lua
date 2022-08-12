@@ -1,5 +1,6 @@
 local c_dirt = minetest.get_content_id("default:dirt")
 local c_active_coal = minetest.get_content_id("minelights:active_coal")
+local c_bedrock = minetest.get_content_id("bedrock:bedrock")
 local c_wood = minetest.get_content_id("default:wood")
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
@@ -17,6 +18,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                         cont = c_dirt
                     elseif y < -5 and math.random() < 0.015 then
                         cont = c_active_coal
+                    elseif y < -50 and math.random() < 0.03 then
+                        cont = c_bedrock
                     elseif y > -100 and math.random() < 0.015 * (1 - y / 100.0) then
                         cont = c_wood
                     else
