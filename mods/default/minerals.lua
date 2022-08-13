@@ -32,7 +32,7 @@ function Minerals.register_mineral(definition)
     local mineral_item_id = "default:mineral_item"..tier
 
     -- Pickaxe
-    local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..definition.color..")"
+    local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
     minetest.register_craftitem("default:pickaxe"..tier, {
         description = definition.name.." Pickaxe",
         wield_scale = {x=1.4, y=1.4, z=1.4},
