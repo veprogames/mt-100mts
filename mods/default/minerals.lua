@@ -28,8 +28,8 @@ end
 function Minerals.register_mineral(definition)
     local tier = definition.tier
 
-    local mineral_drop = "default:mineral_drop"..tier
-    local mineral_item = "default:mineral_item"..tier
+    local mineral_drop_id = "default:mineral_drop"..tier
+    local mineral_item_id = "default:mineral_item"..tier
 
     -- Pickaxe
     local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..definition.color..")"
@@ -43,7 +43,7 @@ function Minerals.register_mineral(definition)
 
     -- Drop (like Lumps, Nuggets or Shards)
     image = definition.drop_image
-    minetest.register_craftitem("default:mineral_drop"..tier, {
+    minetest.register_craftitem(mineral_drop_id, {
         description = definition.name.." "..definition.drop_name,
         wield_image = image,
         inventory_image = image,
@@ -52,7 +52,7 @@ function Minerals.register_mineral(definition)
 
     -- Item used to craft Pickaxes
     image = definition.item_image
-    minetest.register_craftitem("default:mineral_item"..tier, {
+    minetest.register_craftitem(mineral_item_id, {
         description = definition.name.." "..definition.item_name,
         wield_image = image,
         inventory_image = image,
@@ -62,8 +62,8 @@ function Minerals.register_mineral(definition)
     -- Mineral Item (Ingot etc.) Recipe
     minetest.register_craft({
         type = "shapeless",
-        output = "default:mineral_item"..tier,
-        recipe = {mineral_drop, mineral_drop, mineral_drop, mineral_drop, mineral_drop}
+        output = mineral_item_id,
+        recipe = {mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id}
     })
 
     -- Pickaxe Recipe
@@ -71,7 +71,7 @@ function Minerals.register_mineral(definition)
         type = "shaped",
         output = "default:pickaxe"..tier,
         recipe = {
-            {mineral_item, mineral_item, mineral_item},
+            {mineral_item_id, mineral_item_id, mineral_item_id},
             {"", "default:stick", ""},
             {"", "default:stick", ""}
         }
@@ -84,7 +84,7 @@ function Minerals.register_mineral(definition)
         groups = {cracky=tier},
         drop = {
             items = {
-                {items = {"default:mineral_drop"..tier}}
+                {items = {mineral_drop_id}}
             }
         }
     })
