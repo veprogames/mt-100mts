@@ -1,12 +1,17 @@
 local c_grass = minetest.get_content_id("default:grass")
 local c_dirt = minetest.get_content_id("default:dirt")
-local c_active_coal = minetest.get_content_id("minelights:active_coal")
 local c_bedrock = minetest.get_content_id("bedrock:bedrock")
 local c_wood = minetest.get_content_id("default:wood")
+
+local c_active_coal = minetest.get_content_id("minelights:active_coal")
+local c_glowstone = minetest.get_content_id("minelights:glowstone")
+local c_pocket_sun = minetest.get_content_id("minelights:pocket_sun")
+
 local c_magma = minetest.get_content_id("liquids:magma_still")
+local c_lava = minetest.get_content_id("liquids:lava_still")
+local c_plasmatic_fluid = minetest.get_content_id("liquids:plasmatic_still")
 
 local chances = {
-    {content = c_active_coal, ymax = -5, ymin = -2000, chance = 0.015},
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
     {content = c_bedrock, ymax = -50, ymin = -250, chance = 0.02},
@@ -14,11 +19,21 @@ local chances = {
     {content = c_bedrock, ymax = -1000, ymin = -1500, chance = 0.08},
     {content = c_bedrock, ymax = -1500, ymin = -2000, chance = 0.2},
 
+    -- lights
+    {content = c_active_coal, ymax = -5, ymin = -400, chance = 0.015},
+    {content = c_glowstone, ymax = -300, ymin = -1600, chance = 0.012},
+    {content = c_pocket_sun, ymax = -1501, ymin = -2022, chance = 0.01},
+
+    -- liquids
     {content = c_magma, ymax = -100, ymin = -250, chance = 0.0015},
     {content = c_magma, ymax = -251, ymin = -400, chance = 0.003},
     {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
-    {content = c_magma, ymax = -801, ymin = -1600, chance = 0.02},
-    {content = c_magma, ymax = -1601, ymin = -2022, chance = 0.04}
+
+    {content = c_lava, ymax = -801, ymin = -1200, chance = 0.01},
+    {content = c_lava, ymax = -1201, ymin = -1600, chance = 0.015},
+
+    {content = c_plasmatic_fluid, ymax = -1601, ymin = -1800, chance = 0.015},
+    {content = c_plasmatic_fluid, ymax = -1801, ymin = -2022, chance = 0.025}
 }
 
 local function get_content_from_chances(y)
@@ -31,7 +46,7 @@ local function get_content_from_chances(y)
 end
 
 local function get_content_mineral(y)
-    local tier = math.floor(1 - y / 20 + math.random() * 0.9)
+    local tier = math.floor(1 - y / 20 + math.random() * 1.2)
     if math.random() < 0.045 then
         tier = tier + math.random(2, 4)
     end
