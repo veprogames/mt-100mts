@@ -49,9 +49,9 @@ local function register_liquid(id, definition)
     })
 end
 
-register_liquid("liquids:magma", {
+register_liquid("mts_liquids:magma", {
     description = "Magma",
-    image = "liquids_magma.png",
+    image = "mts_liquids_magma.png",
     post_effect_color = {r = 192, g = 0, b = 0, a = 192},
     liquid_range = 3,
     liquid_viscosity = 6,
@@ -59,9 +59,9 @@ register_liquid("liquids:magma", {
     damage_per_second = 2
 })
 
-register_liquid("liquids:lava", {
+register_liquid("mts_liquids:lava", {
     description = "Lava",
-    image = "liquids_lava.png",
+    image = "mts_liquids_lava.png",
     post_effect_color = {r = 255, g = 0, b = 0, a = 192},
     liquid_range = 5,
     liquid_viscosity = 3,
@@ -69,9 +69,9 @@ register_liquid("liquids:lava", {
     damage_per_second = 3
 })
 
-register_liquid("liquids:plasmatic", {
+register_liquid("mts_liquids:plasmatic", {
     description = "Plasmatic Liquid",
-    image = "liquids_plasma.png",
+    image = "mts_liquids_plasma.png",
     post_effect_color = {r = 0, g = 255, b = 255, a = 224},
     liquid_range = 7,
     liquid_viscosity = 1,

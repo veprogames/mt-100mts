@@ -19,9 +19,9 @@ minetest.register_item(":", {
     }
 })
 
-minetest.register_craftitem("default:stick", {
+minetest.register_craftitem("mts_default:stick", {
     description = "Stick",
-    wield_image = "default_stick.png",
-    inventory_image = "default_stick.png",
+    wield_image = "mts_default_stick.png",
+    inventory_image = "mts_default_stick.png",
     stack_max = 9999
 })

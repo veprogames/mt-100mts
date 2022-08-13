@@ -28,8 +28,8 @@ end
 function Minerals.register_mineral(definition)
     local tier = definition.tier
 
-    local mineral_drop_id = "default:mineral_drop"..tier
-    local mineral_item_id = "default:mineral_item"..tier
+    local mineral_drop_id = "mts_default:mineral_drop"..tier
+    local mineral_item_id = "mts_default:mineral_item"..tier
 
     local drop_name = definition.name.." "..definition.drop_name
     local item_name = definition.name.." "..definition.item_name
@@ -39,8 +39,8 @@ function Minerals.register_mineral(definition)
     end
 
     -- Pickaxe
-    local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
-    minetest.register_craftitem("default:pickaxe"..tier, {
+    local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
+    minetest.register_craftitem("mts_default:pickaxe"..tier, {
         description = definition.name.." Pickaxe",
         wield_scale = {x=1.4, y=1.4, z=1.4},
         wield_image=image,
@@ -76,16 +76,16 @@ function Minerals.register_mineral(definition)
     -- Pickaxe Recipe
     minetest.register_craft({
         type = "shaped",
-        output = "default:pickaxe"..tier,
+        output = "mts_default:pickaxe"..tier,
         recipe = {
             {mineral_item_id, mineral_item_id, mineral_item_id},
-            {"", "default:stick", ""},
-            {"", "default:stick", ""}
+            {"", "mts_default:stick", ""},
+            {"", "mts_default:stick", ""}
         }
     })
     
     -- Mineral Block
-    minetest.register_node("default:mineral"..tier, {
+    minetest.register_node("mts_default:mineral"..tier, {
         description = definition.name,
         tiles = {definition.block_image},
         groups = {cracky=tier},
