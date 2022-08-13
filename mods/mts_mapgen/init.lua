@@ -1,15 +1,15 @@
-local c_grass = minetest.get_content_id("default:grass")
-local c_dirt = minetest.get_content_id("default:dirt")
-local c_bedrock = minetest.get_content_id("bedrock:bedrock")
-local c_wood = minetest.get_content_id("default:wood")
+local c_grass = minetest.get_content_id("mts_default:grass")
+local c_dirt = minetest.get_content_id("mts_default:dirt")
+local c_bedrock = minetest.get_content_id("mts_bedrock:bedrock")
+local c_wood = minetest.get_content_id("mts_default:wood")
 
-local c_active_coal = minetest.get_content_id("minelights:active_coal")
-local c_glowstone = minetest.get_content_id("minelights:glowstone")
-local c_pocket_sun = minetest.get_content_id("minelights:pocket_sun")
+local c_active_coal = minetest.get_content_id("mts_lights:active_coal")
+local c_glowstone = minetest.get_content_id("mts_lights:glowstone")
+local c_pocket_sun = minetest.get_content_id("mts_lights:pocket_sun")
 
-local c_magma = minetest.get_content_id("liquids:magma_still")
-local c_lava = minetest.get_content_id("liquids:lava_still")
-local c_plasmatic_fluid = minetest.get_content_id("liquids:plasmatic_still")
+local c_magma = minetest.get_content_id("mts_liquids:magma_still")
+local c_lava = minetest.get_content_id("mts_liquids:lava_still")
+local c_plasmatic_fluid = minetest.get_content_id("mts_liquids:plasmatic_still")
 
 local chances = {
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
@@ -51,7 +51,7 @@ local function get_content_mineral(y)
         tier = tier + math.random(2, 4)
     end
     tier = math.min(100, tier)
-    return minetest.get_content_id("default:mineral"..tier)
+    return minetest.get_content_id("mts_default:mineral"..tier)
 end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)

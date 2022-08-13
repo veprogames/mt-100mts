@@ -1,4 +1,4 @@
-MineralList = dofile(minetest.get_modpath("default").."/MineralList.lua")
+MineralList = dofile(minetest.get_modpath("mts_default").."/MineralList.lua")
 
 MineralDefinition = {}
 
@@ -16,9 +16,9 @@ local function generate_definition(tier)
         drop_name = "Lump",
         item_name = "Ingot",
         pickaxe_color = color,
-        block_image = "default_stone.png^(default_ore.png^[multiply:"..color..")",
-        drop_image = "default_lump.png^[multiply:"..color,
-        item_image = "default_ingot.png^[multiply:"..color
+        block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:"..color..")",
+        drop_image = "mts_default_lump.png^[multiply:"..color,
+        item_image = "mts_default_ingot.png^[multiply:"..color
     }
 end
 
