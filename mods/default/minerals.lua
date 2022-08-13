@@ -25,20 +25,16 @@ local function get_tool_capabilities(tier)
     }
 end
 
-function Minerals.get_color(tier)
-    math.randomseed(tier)
-    return string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
-end
+function Minerals.register_mineral(definition)
+    local tier = definition.tier
 
-function Minerals.register_mineral(tier)
-    local col = Minerals.get_color(tier)
-
-    
+    local mineral_drop = "default:mineral_drop"..tier
+    local mineral_item = "default:mineral_item"..tier
 
     -- Pickaxe
-    local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..col..")"
+    local image = "default_pickaxe_base.png^(default_pickaxe_head.png^[multiply:"..definition.color..")"
     minetest.register_craftitem("default:pickaxe"..tier, {
-        description="Pickaxe "..tier,
+        description = definition.name.." Pickaxe",
         wield_scale = {x=1.4, y=1.4, z=1.4},
         wield_image=image,
         inventory_image=image,
@@ -46,23 +42,24 @@ function Minerals.register_mineral(tier)
     })
 
     -- Drop (like Lumps, Nuggets or Shards)
-    image = "default_lump.png^[multiply:"..col
+    image = definition.drop_image
     minetest.register_craftitem("default:mineral_drop"..tier, {
-        description="Drop "..tier,
-        wield_image=image,
-        inventory_image=image,
+        description = definition.name.." "..definition.drop_name,
+        wield_image = image,
+        inventory_image = image,
         stack_max = 9999
     })
 
     -- Item used to craft Pickaxes
-    image = "default_ingot.png^[multiply:"..col
-    local mineral_drop = "default:mineral_drop"..tier
+    image = definition.item_image
     minetest.register_craftitem("default:mineral_item"..tier, {
-        description="Ingot "..tier,
-        wield_image=image,
-        inventory_image=image,
+        description = definition.name.." "..definition.item_name,
+        wield_image = image,
+        inventory_image = image,
         stack_max = 9999
     })
+
+    -- Mineral Item (Ingot etc.) Recipe
     minetest.register_craft({
         type = "shapeless",
         output = "default:mineral_item"..tier,
@@ -70,7 +67,6 @@ function Minerals.register_mineral(tier)
     })
 
     -- Pickaxe Recipe
-    local mineral_item = "default:mineral_item"..tier
     minetest.register_craft({
         type = "shaped",
         output = "default:pickaxe"..tier,
@@ -83,10 +79,10 @@ function Minerals.register_mineral(tier)
     
     -- Mineral Block
     minetest.register_node("default:mineral"..tier, {
-        description="Mineral "..tier,
-        tiles={"default_stone.png^(default_ore.png^[multiply:"..col..")"},
-        groups={cracky=tier},
-        drop={
+        description = definition.name,
+        tiles = {definition.block_image},
+        groups = {cracky=tier},
+        drop = {
             items = {
                 {items = {"default:mineral_drop"..tier}}
             }
