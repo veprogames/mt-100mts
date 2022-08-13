@@ -6,6 +6,8 @@ A Game for [Minetest](https://www.minetest.net), a FOSS Voxel Game Engine.
 
 You are encouraged to
 * Create and distribute a modifcation of this Game
+* Create Mods for this Game
+* Create Texture Packs for this Game
 * Keep it free
 
 ## Installation
