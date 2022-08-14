@@ -4,7 +4,7 @@ local function get_tool_capabilities(tier)
     local times = {}
 
     for i = 1, tier + 2 do
-        local time = 2 ^ (i - tier)
+        local time = 2 ^ (i - tier) * (0.8 + 0.005 * tier)
         time = math.max(time, 0.2)
         times[i] = time
     end

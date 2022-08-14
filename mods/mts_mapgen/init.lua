@@ -25,7 +25,7 @@ local chances = {
     {content = c_pocket_sun, ymax = -1501, ymin = -2022, chance = 0.01},
 
     -- liquids
-    {content = c_magma, ymax = -100, ymin = -250, chance = 0.0015},
+    {content = c_magma, ymax = -75, ymin = -250, chance = 0.0015},
     {content = c_magma, ymax = -251, ymin = -400, chance = 0.003},
     {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
 
