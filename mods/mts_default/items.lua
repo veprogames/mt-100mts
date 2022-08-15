@@ -11,9 +11,13 @@ minetest.register_item(":", {
                 uses = 0,
                 times = {[1] = 6}
             },
+            crumbly = {
+                uses = 0,
+                times = {[1] = 0.7}
+            },
             cracky = {
                 uses = 0,
-                times = {[0] = 0.7, [1] = 1.4, [2] = 4, [3] = 16}
+                times = {[1] = 1.4, [2] = 4, [3] = 16}
             }
         }
     }
