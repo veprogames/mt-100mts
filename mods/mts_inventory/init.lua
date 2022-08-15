@@ -19,5 +19,11 @@ local inventory_formspec = ""
 	.. "background[0,0;10.75,9.5;mts_inventory_inventory.png;false]"
 
 minetest.register_on_joinplayer(function(player, last_login)
+	player:hud_set_hotbar_image("mts_inventory_hotbar.png")
+	player:hud_set_hotbar_selected_image("mts_inventory_hotbar_selected.png")
 	player:set_inventory_formspec(inventory_formspec)
+end)
+
+minetest.register_on_newplayer(function(player)
+	-- TODO: put some kind of welcome screen here
 end)
