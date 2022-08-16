@@ -47,7 +47,7 @@ end
 
 local function get_block_tier(y)
     local tier = math.floor(1 - y / 20 + math.random() * 0.4)
-    return math.min(100, tier)
+    return math.min(100, math.max(1, tier))
 end
 
 local function get_content_mineral(y)
@@ -67,15 +67,18 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
     local area = VoxelArea:new({MinEdge = emin, MaxEdge = emax})
     local data = voxelmanip:get_data()
 
+    local perlin = minetest.get_perlin({seed = 42, octaves = 4, persist = 0.7, spread = {x = 40, y = 40, z = 40}})
+
     for x = minp.x, maxp.x do
-        for y = minp.y, maxp.y do
-            for z = minp.z, maxp.z do
-                if y < 0 then
+        for z = minp.z, maxp.z do
+            for y = minp.y, maxp.y do
+                local h = perlin:get_2d({x = x, y = z}) * 3.5
+                if y <= h then
                     local idx = area:index(x, y, z)
                     local cont
-                    if y >= -1 then
+                    if y >= h - 1 then
                         cont = c_grass
-                    elseif y >= -3 then
+                    elseif y >= h - 3 then
                         cont = c_dirt
                     elseif y < -2022 then
                         cont = c_bedrock
