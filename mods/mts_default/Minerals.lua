@@ -8,7 +8,7 @@ local function get_tool_capabilities(tier)
         time = math.max(time, 0.2)
         times[i] = time
     end
-    
+
     return {
         full_punch_interval = 0.9,
         max_drop_level = 0,
@@ -41,7 +41,7 @@ function Minerals.register_mineral(definition)
     -- Pickaxe
     local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
     minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe",
+        description = definition.name.." Pickaxe\n" .. minetest.colorize("#cccccc", "Tier: " .. tier),
         wield_scale = {x=1.4, y=1.4, z=1.4},
         wield_image=image,
         inventory_image=image,
@@ -83,7 +83,7 @@ function Minerals.register_mineral(definition)
             {"", "mts_default:stick", ""}
         }
     })
-    
+
     -- Mineral Block
     minetest.register_node("mts_default:mineral"..tier, {
         description = definition.name,
