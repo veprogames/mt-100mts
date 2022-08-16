@@ -32,7 +32,7 @@ function Minerals.register_stone(tier)
         groups = {cracky = tier},
         drop = {
             items = {
-                {items = {"mts_default:mineral_drop1"}} -- Pebble
+                {items = {"mts_default:pebble"}}
             }
         }
     })

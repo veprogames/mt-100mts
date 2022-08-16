@@ -51,8 +51,9 @@ local function get_block_tier(y)
 end
 
 local function get_content_mineral(y)
-    local tier_bonus = math.floor(1 + 4 - math.log(1 + math.random() * 2 ^ 4, 2)) -- 0.5x as likely for each better mineral
+    local tier_bonus = math.floor(4 - math.log(1 + math.random() * 2 ^ 4, 2)) -- 0.5x as likely for each better mineral
     local tier = get_block_tier(y) + tier_bonus
+    tier = math.max(1, tier)
     return minetest.get_content_id("mts_default:mineral"..tier)
 end
 
