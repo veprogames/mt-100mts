@@ -14,7 +14,7 @@ local c_plasmatic_fluid = minetest.get_content_id("mts_liquids:plasmatic_still")
 local chances = {
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
-    {content = c_bedrock, ymax = -50, ymin = -250, chance = 0.02},
+    {content = c_bedrock, ymax = -25, ymin = -250, chance = 0.02},
     {content = c_bedrock, ymax = -250, ymin = -1000, chance = 0.04},
     {content = c_bedrock, ymax = -1000, ymin = -1500, chance = 0.08},
     {content = c_bedrock, ymax = -1500, ymin = -2000, chance = 0.2},
@@ -25,7 +25,7 @@ local chances = {
     {content = c_pocket_sun, ymax = -1501, ymin = -2022, chance = 0.01},
 
     -- liquids
-    {content = c_magma, ymax = -75, ymin = -250, chance = 0.0015},
+    {content = c_magma, ymax = -60, ymin = -250, chance = 0.0015},
     {content = c_magma, ymax = -251, ymin = -400, chance = 0.003},
     {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
 
@@ -45,13 +45,20 @@ local function get_content_from_chances(y)
     return nil
 end
 
+local function get_block_tier(y)
+    local tier = math.floor(1 - y / 20 + math.random() * 0.4)
+    return math.min(100, tier)
+end
+
 local function get_content_mineral(y)
-    local tier = math.floor(1 - y / 20 + math.random() * 1.2)
-    if math.random() < 0.045 then
-        tier = tier + math.random(2, 4)
-    end
-    tier = math.min(100, tier)
+    local tier_bonus = math.floor(1 + 4 - math.log(1 + math.random() * 2 ^ 4, 2)) -- 0.5x as likely for each better mineral
+    local tier = get_block_tier(y) + tier_bonus
     return minetest.get_content_id("mts_default:mineral"..tier)
+end
+
+local function get_content_stone(y)
+    local tier = get_block_tier(y)
+    return minetest.get_content_id("mts_default:stone"..tier)
 end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
@@ -74,7 +81,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                     else
                         cont = get_content_from_chances(y)
                         if cont == nil then
-                            cont = get_content_mineral(y)
+                            if math.random() < 0.05 then
+                                cont = get_content_mineral(y)
+                            else
+                                cont = get_content_stone(y)
+                            end
                         end
                     end
                     data[idx] = cont
