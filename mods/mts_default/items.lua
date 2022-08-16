@@ -49,6 +49,7 @@ minetest.register_craftitem("mts_default:stone_pickaxe", {
     description = "Stone Pickaxe\n\n"..minetest.colorize("#c0c0c0", "A Simple Pickaxe that can be used to break the first Ores"),
     wield_image = pickaxe_image,
     inventory_image = pickaxe_image,
+    wield_scale = {x=1.4, y=1.4, z=1.4},
     tool_capabilities = {
         groupcaps = {
             cracky = {
