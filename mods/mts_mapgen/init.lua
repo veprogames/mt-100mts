@@ -1,6 +1,7 @@
 local c_grass = minetest.get_content_id("mts_default:grass")
 local c_dirt = minetest.get_content_id("mts_default:dirt")
 local c_bedrock = minetest.get_content_id("mts_bedrock:bedrock")
+local c_end_of_map = minetest.get_content_id("mts_bedrock:end_of_map")
 local c_wood = minetest.get_content_id("mts_default:wood")
 
 local c_active_coal = minetest.get_content_id("mts_lights:active_coal")
@@ -58,7 +59,7 @@ end
 local function get_content_mineral(y)
     local tier_bonus = math.floor(4 - math.log(1 + math.random() * 2 ^ 4, 2)) -- 0.5x as likely for each better mineral
     local tier = get_block_tier(y) + tier_bonus
-    tier = math.max(1, tier)
+    tier = math.max(1, math.min(100, tier))
     return minetest.get_content_id("mts_default:mineral"..tier)
 end
 
@@ -105,7 +106,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                     elseif y >= h - 3 then
                         cont = c_dirt
                     elseif y < -2022 then
-                        cont = c_bedrock
+                        cont = c_end_of_map
                     else
                         cont = get_content_from_chances(y)
                         if cont == nil then
