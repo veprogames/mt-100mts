@@ -11,6 +11,9 @@ local c_magma = minetest.get_content_id("mts_liquids:magma_still")
 local c_lava = minetest.get_content_id("mts_liquids:lava_still")
 local c_plasmatic_fluid = minetest.get_content_id("mts_liquids:plasmatic_still")
 
+local c_grass_plant = minetest.get_content_id("mts_plants:grass")
+local c_sunflower_plant = minetest.get_content_id("mts_plants:sunflower")
+
 local chances = {
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
@@ -62,6 +65,15 @@ local function get_content_stone(y)
     return minetest.get_content_id("mts_default:stone"..tier)
 end
 
+local function get_random_plant()
+    if math.random() < 0.2 then
+        return c_grass_plant
+    elseif math.random() < 0.004 then
+        return c_sunflower_plant
+    end
+    return nil
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
     local voxelmanip, emin, emax = minetest.get_mapgen_object("voxelmanip")
     local area = VoxelArea:new({MinEdge = emin, MaxEdge = emax})
@@ -73,8 +85,14 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
         for z = minp.z, maxp.z do
             for y = minp.y, maxp.y do
                 local h = perlin:get_2d({x = x, y = z}) * 3.5
+                local idx = area:index(x, y, z)
+                if math.floor(y) == math.floor(h + 1) then
+                    local plant = get_random_plant()
+                    if plant ~= nil then
+                        data[idx] = plant
+                    end
+                end
                 if y <= h then
-                    local idx = area:index(x, y, z)
                     local cont
                     if y >= h - 1 then
                         cont = c_grass
