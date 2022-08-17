@@ -18,6 +18,10 @@ minetest.register_item(":", {
             cracky = {
                 uses = 0,
                 times = {[1] = 1.5}
+            },
+            dig_immediate = {
+                uses = 0,
+                times = {[1] = 0}
             }
         }
     }
