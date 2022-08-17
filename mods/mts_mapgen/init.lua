@@ -14,6 +14,8 @@ local c_plasmatic_fluid = minetest.get_content_id("mts_liquids:plasmatic_still")
 local c_grass_plant = minetest.get_content_id("mts_plants:grass")
 local c_sunflower_plant = minetest.get_content_id("mts_plants:sunflower")
 
+local perlin_config = {seed = 42, octaves = 4, persist = 0.7, spread = {x = 40, y = 40, z = 40}}
+
 local chances = {
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
@@ -74,17 +76,21 @@ local function get_random_plant()
     return nil
 end
 
+local function get_world_height(perlin_obj, x, z)
+    return perlin_obj:get_2d({x = x, y = z}) * 3.5
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
     local voxelmanip, emin, emax = minetest.get_mapgen_object("voxelmanip")
     local area = VoxelArea:new({MinEdge = emin, MaxEdge = emax})
     local data = voxelmanip:get_data()
 
-    local perlin = minetest.get_perlin({seed = 42, octaves = 4, persist = 0.7, spread = {x = 40, y = 40, z = 40}})
+    local perlin = minetest.get_perlin(perlin_config)
 
     for x = minp.x, maxp.x do
         for z = minp.z, maxp.z do
             for y = minp.y, maxp.y do
-                local h = perlin:get_2d({x = x, y = z}) * 3.5
+                local h = get_world_height(perlin, x, z)
                 local idx = area:index(x, y, z)
                 if math.floor(y) == math.floor(h + 1) then
                     local plant = get_random_plant()
@@ -119,4 +125,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
     voxelmanip:set_data(data)
     voxelmanip:calc_lighting()
     voxelmanip:write_to_map(data)
+end)
+
+minetest.register_on_newplayer(function(player)
+    local perlin = minetest.get_perlin(perlin_config)
+    local pos = player:get_pos()
+    local h = get_world_height(perlin, pos.x, pos.z)
+    player:set_pos({x = pos.x, y = h + 1, z = pos.z})
 end)
