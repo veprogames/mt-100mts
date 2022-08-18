@@ -5,7 +5,7 @@ minetest.register_node("mts_plants:grass", {
     walkable = false,
     paramtype = "light",
     sunlight_propagates = true,
-    groups = {dig_immediate = 1},
+    groups = {dig_immediate = 1, attached_node = 1},
     drop = {}
 })
 
@@ -17,6 +17,6 @@ minetest.register_node("mts_plants:sunflower", {
     walkable = false,
     paramtype = "light",
     sunlight_propagates = true,
-    groups = {dig_immediate = 1},
+    groups = {dig_immediate = 1, attached_node = 1},
     drop = {}
 })
