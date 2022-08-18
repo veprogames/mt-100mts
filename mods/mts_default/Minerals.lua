@@ -44,6 +44,8 @@ function Minerals.register_mineral(definition)
     local mineral_drop_id = "mts_default:mineral_drop"..tier
     local mineral_item_id = "mts_default:mineral_item"..tier
 
+    local tier_text = minetest.colorize("#cccccc", "Tier").." "..minetest.colorize("#00ff00", tier)
+
     local drop_name = definition.name.." "..definition.drop_name
     local item_name = definition.name.." "..definition.item_name
     if definition.concat_names == false then
@@ -54,7 +56,7 @@ function Minerals.register_mineral(definition)
     -- Pickaxe
     local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
     minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe\n" .. minetest.colorize("#cccccc", "Tier: " .. tier),
+        description = definition.name.." Pickaxe\n" .. tier_text,
         wield_scale = {x=1.4, y=1.4, z=1.4},
         wield_image=image,
         inventory_image=image,
@@ -64,7 +66,7 @@ function Minerals.register_mineral(definition)
     -- Drop (like Lumps, Nuggets or Shards)
     image = definition.drop_image
     minetest.register_craftitem(mineral_drop_id, {
-        description = drop_name,
+        description = drop_name .. "\n" .. tier_text,
         wield_image = image,
         inventory_image = image,
         stack_max = 9999
@@ -73,7 +75,7 @@ function Minerals.register_mineral(definition)
     -- Item used to craft Pickaxes
     image = definition.item_image
     minetest.register_craftitem(mineral_item_id, {
-        description = item_name,
+        description = item_name .. "\n" .. tier_text,
         wield_image = image,
         inventory_image = image,
         stack_max = 9999
