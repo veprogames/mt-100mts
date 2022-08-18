@@ -44,7 +44,7 @@ function Minerals.register_mineral(definition)
     local mineral_drop_id = "mts_default:mineral_drop"..tier
     local mineral_item_id = "mts_default:mineral_item"..tier
 
-    local tier_text = minetest.colorize("#cccccc", "Tier").." "..minetest.colorize("#00ff00", tier)
+    local tier_text = minetest.colorize("#cccccc", "Lv.").." "..minetest.colorize("#00ff00", tier)
 
     local drop_name = definition.name.." "..definition.drop_name
     local item_name = definition.name.." "..definition.item_name
