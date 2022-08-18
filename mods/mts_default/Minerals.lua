@@ -14,12 +14,20 @@ local function get_tool_capabilities(tier)
         max_drop_level = 0,
         groupcaps = {
             cracky = {
-                uses = 1000,
+                uses = 0,
                 times = times
             },
             choppy = {
-                uses = 1000,
+                uses = 0,
                 times = {[1] = math.max(0.25, 5 * 0.9 ^ tier)}
+            },
+            lighty = {
+                uses = 0,
+                times = {
+                    [1] = 3 / (1 + 0.1 * tier),
+                    [2] = 6 / (1 + 0.1 * tier),
+                    [3] = 12 / (1 + 0.1 * tier)
+                }
             }
         }
     }
