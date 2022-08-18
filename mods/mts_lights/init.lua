@@ -2,14 +2,14 @@ minetest.register_node("mts_lights:active_coal", {
     description="Active Coal",
     tiles={"mts_lights_active_coal.png"},
     groups={cracky=2},
-    light_source = 5
+    light_source = 8
 })
 
 minetest.register_node("mts_lights:glowstone", {
     description="Glowstone",
     tiles={"mts_lights_glowstone.png"},
     groups={cracky=20},
-    light_source = 9
+    light_source = 11
 })
 
 minetest.register_node("mts_lights:pocket_sun", {
