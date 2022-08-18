@@ -25,6 +25,19 @@ local function get_tool_capabilities(tier)
     }
 end
 
+function Minerals.register_stone(tier)
+    minetest.register_node("mts_default:stone"..tier, {
+        description = "Stone Lv. "..tier,
+        tiles = {"mts_default_stone.png"},
+        groups = {cracky = tier},
+        drop = {
+            items = {
+                {items = {"mts_default:pebble"}}
+            }
+        }
+    })
+end
+
 function Minerals.register_mineral(definition)
     local tier = definition.tier
 
