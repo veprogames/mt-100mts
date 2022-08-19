@@ -106,7 +106,24 @@ function Minerals.register_mineral(definition)
             items = {
                 {items = {mineral_drop_id}}
             }
-        }
+        },
+        after_dig_node = function (pos, oldnode, oldmeta, digger)
+            local name = digger:get_player_name()
+            local meta = digger:get_meta()
+            local highest_lvl = meta:get_int("highest_mineral_level")
+
+            if highest_lvl < tier then
+                minetest.chat_send_all(minetest.colorize("#00ff30", name).." reached Mineral Lv. "..minetest.colorize("#00ff00", tier).."!")
+                if tier >= 100 then
+                    minetest.chat_send_player(name, "Congratulations on reaching the last Mineral!\n"..
+                    "Now you can craft the best Pickaxe!\n"..
+                    "Thanks for playing "..minetest.colorize("#00ff00", "100 Minerals to success").."!")
+                end
+                meta:set_int("highest_mineral_level", tier)
+            end
+
+            return true
+        end
     })
 end
 
