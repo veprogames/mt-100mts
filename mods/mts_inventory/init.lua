@@ -25,7 +25,6 @@ minetest.register_on_joinplayer(function(player, last_login)
 end)
 
 minetest.register_on_newplayer(function(player)
-	-- TODO: put some kind of welcome screen here
-	minetest.chat_send_player(player:get_player_name(), 
+	minetest.chat_send_player(player:get_player_name(),
 		"Welcome to 100 Minerals to Success! Type "..minetest.colorize("#00ff00", "/mts_tutorial").." for an introduction")
 end)
