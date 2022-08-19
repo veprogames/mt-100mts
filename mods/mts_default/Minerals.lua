@@ -20,7 +20,10 @@ local function get_tool_capabilities(tier)
             choppy = {
                 uses = 1000,
                 times = {[1] = math.max(0.25, 5 * 0.9 ^ tier)}
-            }
+            },
+			teleportey = {
+				times = {[1] = 1, [2] = 3}
+			},
         }
     }
 end
