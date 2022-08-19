@@ -107,7 +107,7 @@ function Minerals.register_mineral(definition)
                 {items = {mineral_drop_id}}
             }
         },
-        on_dig = function (pos, node, digger)
+        after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
             local meta = digger:get_meta()
             local highest_lvl = meta:get_int("highest_mineral_level")
