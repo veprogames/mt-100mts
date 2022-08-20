@@ -15,9 +15,13 @@ local c_plasmatic_fluid = minetest.get_content_id("mts_liquids:plasmatic_still")
 local c_grass_plant = minetest.get_content_id("mts_plants:grass")
 local c_sunflower_plant = minetest.get_content_id("mts_plants:sunflower")
 
+local c_teleporter = minetest.get_content_id("mts_teleporters:inactive")
+
 local perlin_config = {seed = 42, octaves = 4, persist = 0.7, spread = {x = 40, y = 40, z = 40}}
 
 local chances = {
+    {content = c_teleporter, ymax = -10, ymin = -2000, chance = 0.001},
+
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
     {content = c_bedrock, ymax = -25, ymin = -250, chance = 0.02},
@@ -119,6 +123,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
                     end
                     data[idx] = cont
                 end
+				-- if x > 0 then data[idx] = minetest.CONTENT_AIR end -- uncomment to see ore distribution
             end
         end
     end
