@@ -40,15 +40,18 @@ local function remove_station(network, pos)
 end
 
 -- formspec for setting network label
+local Teleporter = minetest.colorize("#72fffa", "Teleporter")
+local Network = minetest.colorize("#d1c3ff", "Network")
 local activate_fs = ""
 	.. "formspec_version[6]"
-	.. "size[4,4,false]"
-	.. "label[0.25,0.5;Activate teleporter and assign \nit to a network.]"
-	.. "label[0.25,1.5;Destination is randomized.]"
-	.. "field[1,2;2,0.75;network_name;Network name:;network_1]"
-	.. "button_exit[0.25,3;1.5,0.75;confim;Activate]"
-	.. "button_exit[2.25,3;1.5,0.75;exit;Cancel]"
-	.. "background[0,0;4,4;mts_teleporters_fs.png;false]"
+	.. "size[7,5,false]"
+	.. "label[0.5,0.5;Activate " .. Teleporter .. " and assign it to a " .. Network .. ".]"
+	.. "label[0.5,1;Upon Teleportation, you will be teleported to another \nrandom Teleporter that is in the same Network.]"
+	.. "label[0.5,2;Beware! Once a teleporter is activated it becomes \nentangled with the very fabric of space-time \nand becomes indestructible.]"
+	.. "field[2,4;3,0.75;network_name;Network name:;network_1]"
+	.. "button_exit[0.25,4;1.5,0.75;confim;Activate]"
+	.. "button_exit[5.25,4;1.5,0.75;exit;Cancel]"
+	.. "background[0,0;7,5;mts_teleporters_activate.png;false]"
 
 minetest.register_node("mts_teleporters:inactive", {
 	description = "Telporter",
@@ -67,7 +70,7 @@ minetest.register_node("mts_teleporters:inactive", {
 local edit_fs = ""
 	.. "formspec_version[6]"
 	.. "size[4,4,false]"
-	.. "label[0.5,0.75;Change teleporter network.]"
+	.. "label[0.5,0.75;Change teleporter network:]"
 	.. "field[1,1.75;2,0.75;network_name;New name:;network_1]"
 	.. "button_exit[0.25,3;1.5,0.75;confim;Change]"
 	.. "button_exit[2.25,3;1.5,0.75;exit;Cancel]"
