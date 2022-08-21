@@ -50,7 +50,9 @@ minetest.register_craftitem("mts_default:rock", {
 
 local pickaxe_image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:#707070)"
 minetest.register_craftitem("mts_default:stone_pickaxe", {
-    description = "Stone Pickaxe\n\n"..minetest.colorize("#c0c0c0", "A Simple Pickaxe that can be used to break the first Ores"),
+    description = "Stone Pickaxe\n\n"..
+        minetest.colorize("#c0c0c0", "A Simple Pickaxe that can be used to break the first Ores").."\n"..
+        minetest.colorize("#cccccc", "Tier/Lv.").." "..minetest.colorize("#00ff00", "0"),
     wield_image = pickaxe_image,
     inventory_image = pickaxe_image,
     wield_scale = {x=1.4, y=1.4, z=1.4},
