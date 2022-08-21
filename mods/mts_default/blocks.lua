@@ -25,7 +25,7 @@ minetest.register_node("mts_default:wood", {
     groups = {choppy = 1},
     drop = {
         items = {
-            {items = {"mts_default:stick 2"}}
+            {items = {"mts_default:stick"}}
         }
     }
 })
