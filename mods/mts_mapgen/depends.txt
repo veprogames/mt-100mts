@@ -1,4 +1,0 @@
-mts_default
-mts_lights
-mts_bedrock
-mts_liquids

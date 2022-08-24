@@ -4,3 +4,7 @@ MineralDefinition = dofile(minetest.get_modpath("mts_default").."/MineralDefinit
 for i = 1, 100 do
     Minerals.register_mineral(MineralDefinition.get_definition(i))
 end
+
+for i = 1, 100 do
+    Minerals.register_stone(i)
+end
