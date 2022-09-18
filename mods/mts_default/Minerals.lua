@@ -1,49 +1,8 @@
 Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 Minerals = {}
 
-local function get_hp_at_tier(tier)
+function Minerals.get_hp_at_tier(tier)
     return Big:new(2 + 0.1 * tier) ^ tier
-end
-
-local function get_pickaxe_damage_at_tier(tier)
-    return Big:new(2) ^ tier
-end
-
-local function get_tool_capabilities(tier)
-    local times = {}
-
-    for i = 1, tier + 2 do
-        --local time = 2 ^ (i - tier) * (0.8 + 0.005 * tier)
-        local time = (get_hp_at_tier(i) / get_pickaxe_damage_at_tier(tier)):to_number()
-        time = math.max(time, 0.2)
-        times[i] = time
-    end
-
-    return {
-        full_punch_interval = 0.9,
-        max_drop_level = 0,
-        groupcaps = {
-            cracky = {
-                uses = 0,
-                times = times
-            },
-            choppy = {
-                uses = 0,
-                times = {[1] = math.max(0.25, 5 * 0.9 ^ tier)}
-            },
-            lighty = {
-                uses = 0,
-                times = {
-                    [1] = 3 / (1 + 0.1 * tier),
-                    [2] = 6 / (1 + 0.1 * tier),
-                    [3] = 12 / (1 + 0.1 * tier)
-                }
-            },
-            teleportey = {
-              times = {[1] = 1, [2] = 3}
-            }
-        }
-    }
 end
 
 function Minerals.register_stone(tier)
@@ -74,18 +33,8 @@ function Minerals.register_mineral(definition)
         item_name = definition.item_name
     end
 
-    -- Pickaxe
-    local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
-    minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe\n" .. tier_text .. "\n" .. minetest.colorize("#00ff00", get_pickaxe_damage_at_tier(tier)).." DPS",
-        wield_scale = {x=1.4, y=1.4, z=1.4},
-        wield_image=image,
-        inventory_image=image,
-        tool_capabilities = get_tool_capabilities(tier)
-    })
-
     -- Drop (like Lumps, Nuggets or Shards)
-    image = definition.drop_image
+    local image = definition.drop_image
     minetest.register_craftitem(mineral_drop_id, {
         description = drop_name .. "\n" .. tier_text,
         wield_image = image,
@@ -132,7 +81,7 @@ function Minerals.register_mineral(definition)
         },
         on_construct = function (pos)
             local meta = minetest.get_meta(pos)
-            meta:set_string("infotext", minetest.colorize("#00ff00", get_hp_at_tier(tier)).." HP")
+            meta:set_string("infotext", minetest.colorize("#00ff00", Minerals.get_hp_at_tier(tier)).." HP")
         end,
         after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
