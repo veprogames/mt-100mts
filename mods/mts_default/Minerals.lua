@@ -1,10 +1,20 @@
+Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 Minerals = {}
+
+local function get_hp_at_tier(tier)
+    return Big:new(2 + 0.1 * tier) ^ tier
+end
+
+local function get_pickaxe_damage_at_tier(tier)
+    return Big:new(2) ^ tier
+end
 
 local function get_tool_capabilities(tier)
     local times = {}
 
     for i = 1, tier + 2 do
-        local time = 2 ^ (i - tier) * (0.8 + 0.005 * tier)
+        --local time = 2 ^ (i - tier) * (0.8 + 0.005 * tier)
+        local time = (get_hp_at_tier(i) / get_pickaxe_damage_at_tier(tier)):to_number()
         time = math.max(time, 0.2)
         times[i] = time
     end
@@ -67,7 +77,7 @@ function Minerals.register_mineral(definition)
     -- Pickaxe
     local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
     minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe\n" .. tier_text,
+        description = definition.name.." Pickaxe\n" .. tier_text .. "\n" .. minetest.colorize("#00ff00", get_pickaxe_damage_at_tier(tier)).." DPS",
         wield_scale = {x=1.4, y=1.4, z=1.4},
         wield_image=image,
         inventory_image=image,
@@ -120,6 +130,10 @@ function Minerals.register_mineral(definition)
                 {items = {mineral_drop_id}}
             }
         },
+        on_construct = function (pos)
+            local meta = minetest.get_meta(pos)
+            meta:set_string("infotext", minetest.colorize("#00ff00", get_hp_at_tier(tier)).." HP")
+        end,
         after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
             local meta = digger:get_meta()
