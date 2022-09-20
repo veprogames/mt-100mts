@@ -11,13 +11,23 @@ function Blacksmith.register_blacksmith()
     minetest.register_node("mts_pickcrafting:blacksmith", {
         description = "Blacksmith",
         tiles = {"mts_pickcrafting_pickaxe.png"},
-        on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
+        on_punch = function (pos, node, puncher, pointed_thing)
             local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
             local item = PickaxeGenerator.generate(damage)
-            clicker:get_inventory():add_item("main", item)
+            puncher:get_inventory():add_item("main", item)
             Blacksmith.save()
+        end,
+        on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
+            minetest.show_formspec(clicker:get_player_name(), "mts_fs_blacksmith", Blacksmith.create_formspec())
         end
     })
+end
+
+function Blacksmith.create_formspec()
+    return string.format("formspec_version[6]"..
+        "size[16,9]"..
+        "label[1,1;%s]", "x" .. (Blacksmith.data.multipliers[1] or 1))..
+        "label[11,1;This is a description]"
 end
 
 function Blacksmith.init_storage()
