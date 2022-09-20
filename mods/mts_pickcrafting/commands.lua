@@ -19,7 +19,7 @@ minetest.register_chatcommand("mts_blacksmith_test", {
     privs = {give = true},
     func = function (name, damage_as_str)
         local m = math.random() * 123
-        Blacksmith.data.multipliers.minerals[1] = m
+        Blacksmith.data.multipliers[1] = m
         return true, "Multiplier <1> set to x"..m
     end
 })

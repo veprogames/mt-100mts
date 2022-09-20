@@ -22,18 +22,14 @@ end
 
 function Blacksmith.init_storage()
     return {
-        multipliers = {
-            minerals = {} --sequential
-        },
-        powers = {
-            simple = {} -- sequential
-        }
+        multipliers = {},
+        powers = {}
     }
 end
 
 function Blacksmith.get_total_mult()
     local mult = Big:new(1)
-    for k, m in pairs(Blacksmith.data.multipliers.minerals) do
+    for k, m in pairs(Blacksmith.data.multipliers) do
         mult = mult * Big:new(m)
     end
     return mult
@@ -41,7 +37,7 @@ end
 
 function Blacksmith.get_total_pow()
     local pow = 1
-    for k, p in pairs(Blacksmith.data.powers.simple) do
+    for k, p in pairs(Blacksmith.data.powers) do
         pow = pow * p
     end
     return pow
@@ -59,6 +55,7 @@ function Blacksmith.save()
     storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
 end
 
-Blacksmith.load()
+Blacksmith.data = Blacksmith.init_storage()
+--Blacksmith.load()
 
 return Blacksmith
