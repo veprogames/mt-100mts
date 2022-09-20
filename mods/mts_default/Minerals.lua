@@ -2,7 +2,8 @@ Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 Minerals = {}
 
 function Minerals.get_hp_at_tier(tier)
-    return Big:new(2 + 0.1 * tier) ^ tier
+    local t = tier - 1
+    return Big:new(1.2 + 0.05 * t) ^ t * Big:new(10)
 end
 
 function Minerals.register_stone(tier)
@@ -51,13 +52,6 @@ function Minerals.register_mineral(definition)
         stack_max = 9999
     })
 
-    -- Mineral Item (Ingot etc.) Recipe
-    minetest.register_craft({
-        type = "shapeless",
-        output = mineral_item_id,
-        recipe = {mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id}
-    })
-
     -- Pickaxe Recipe
     minetest.register_craft({
         type = "shaped",
@@ -74,15 +68,7 @@ function Minerals.register_mineral(definition)
         description = definition.name,
         tiles = {definition.block_image},
         groups = {cracky=tier},
-        drop = {
-            items = {
-                {items = {mineral_drop_id}}
-            }
-        },
-        on_construct = function (pos)
-            local meta = minetest.get_meta(pos)
-            meta:set_string("infotext", minetest.colorize("#00ff00", Minerals.get_hp_at_tier(tier)).." HP")
-        end,
+        drop = mineral_item_id,
         after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
             local meta = digger:get_meta()
