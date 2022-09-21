@@ -14,12 +14,11 @@ function Blacksmith.register_blacksmith()
         on_punch = function (pos, node, puncher, pointed_thing)
             local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
             local item = PickaxeGenerator.generate(damage)
-            Blacksmith.absorb_inventory(puncher:get_player_name())
             puncher:get_inventory():add_item("main", item)
             Blacksmith.save()
         end,
         on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
-            minetest.show_formspec(clicker:get_player_name(), "mts_fs_blacksmith", Blacksmith.create_formspec())
+            Blacksmith.show_formspec(clicker:get_player_name())
         end
     })
 end
@@ -49,21 +48,33 @@ function Blacksmith.create_formspec()
         end
     end
 
+    local description = [[The Vortex Blacksmith will absorb the Minerals you have mined to get stronger.
+The boosts of the Minerals multiply with each other!
+
+Every Mineral Drop adds +0.01 to their Multiplier.]]
+
+    local scroll_height = math.max(0, 10 * #mult_keys - 80)
+
     return "formspec_version[6]"..
         "size[16,9]"..
-        "textarea[11,1;4.8,6;;;The Vortex Blacksmith will absorb the Minerals you have mined to get stronger. The boosts of the Minerals multiply with each other!]"..
-        "scrollbaroptions[max=200;arrows=hide]"..
+        string.format("textarea[11,1;4.8,5;;;%s]", description)..
+        string.format("scrollbaroptions[max=%d;arrows=hide]", scroll_height)..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
         "scroll_container[1,1;9,9;scroll_mult;vertical;]"..
             "style_type[label;font_size=*1.7;textcolor=#e0ffe0]"..
             text_mults..
         "scroll_container_end[]"..
+        "button[11,6.5;2,0.5;absorb;Absorb!]"..
         "container[11,7.5;5,2]"..
             "style_type[label;font_size=*1.2;textcolor=#ffffff]"..
             "label[0,0;Total Multiplier]"..
             "style_type[label;font_size=*1.8;textcolor=#00ff00]"..
             string.format("label[0,0.5;x%s]", Blacksmith.get_total_mult():to_string())..
         "container_end[]"
+end
+
+function Blacksmith.show_formspec(name)
+    minetest.show_formspec(name, "mts_pickcrafting:blacksmith", Blacksmith.create_formspec())
 end
 
 function Blacksmith.absorb_inventory(player_name)
@@ -115,6 +126,15 @@ end
 function Blacksmith.save()
     storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
 end
+
+minetest.register_on_player_receive_fields(function (player, formname, fields)
+    if formname == "mts_pickcrafting:blacksmith" then
+        if fields.absorb then
+            Blacksmith.absorb_inventory(player:get_player_name())
+            Blacksmith.show_formspec(player:get_player_name())
+        end
+    end
+end)
 
 Blacksmith.data = Blacksmith.init_storage()
 --Blacksmith.load()
