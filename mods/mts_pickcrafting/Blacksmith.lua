@@ -24,10 +24,40 @@ function Blacksmith.register_blacksmith()
 end
 
 function Blacksmith.create_formspec()
-    return string.format("formspec_version[6]"..
+    local text_mults = ""
+
+    local mult_keys = {}
+    for k in pairs(Blacksmith.data.multipliers) do
+        if type(k) == "number" then
+            table.insert(mult_keys, k)
+        end
+    end
+    table.sort(mult_keys)
+
+    local x = 0
+    local y = 0
+    for k, v in pairs(mult_keys) do
+        local mult = Blacksmith.data.multipliers[v]
+        text_mults = text_mults ..
+            string.format("item_image[%d,%d;1,1;mts_default:mineral_item%d]", x, y, v)..
+            string.format("label[%f,%f;x%.2f]", x + 1.25, y + 0.5, mult)
+        x = x + 4
+        if x > 4 then
+            x = 0
+            y = y + 1
+        end
+    end
+
+    return "formspec_version[6]"..
         "size[16,9]"..
-        "label[1,1;%s]", "x" .. (Blacksmith.data.multipliers[1] or 1))..
-        "label[11,1;This is a description]"
+        string.format("label[11,8;%s]", Blacksmith.get_total_mult():to_string())..
+        "label[11,1;This is a description]"..
+        "scrollbaroptions[max=200;arrows=hide]"..
+        "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
+        "scroll_container[1,1;9,9;scroll_mult;vertical;]"..
+            "style_type[label;font_size=*1.7;textcolor=#e0ffe0]"..
+            text_mults..
+        "scroll_container_end[]"
 end
 
 function Blacksmith.init_storage()
