@@ -12,10 +12,7 @@ function Blacksmith.register_blacksmith()
         description = "Vortex Blacksmith",
         tiles = {"mts_pickcrafting_pickaxe.png"},
         on_punch = function (pos, node, puncher, pointed_thing)
-            local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
-            local item = PickaxeGenerator.generate(damage)
-            puncher:get_inventory():add_item("main", item)
-            Blacksmith.save()
+            Blacksmith.craft_pickaxe(puncher)
         end,
         on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
             Blacksmith.show_formspec(clicker:get_player_name())
@@ -87,6 +84,21 @@ function Blacksmith.show_formspec(name)
     minetest.show_formspec(name, "mts_pickcrafting:blacksmith", Blacksmith.create_formspec())
 end
 
+function Blacksmith.craft_pickaxe(player)
+    local inv = player:get_inventory()
+
+    local taken = inv:remove_item("main", ItemStack("mts_default:stick"))
+
+    -- require a stick for crafting
+    if taken:get_count() >= 1 then
+        local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
+        local item = PickaxeGenerator.generate(damage)
+        inv:add_item("main", item)
+    else
+        minetest.chat_send_all(minetest.colorize("red", "Not enough Sticks!"))
+    end
+end
+
 function Blacksmith.absorb_inventory(player_name)
     local inv = minetest.get_inventory({type = "player", name = player_name})
     if inv ~= nil then
@@ -99,6 +111,7 @@ function Blacksmith.absorb_inventory(player_name)
                 inv:remove_item("main", item)
             end
         end
+        Blacksmith.save()
     end
 end
 
