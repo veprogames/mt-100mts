@@ -9,7 +9,7 @@ Blacksmith = {
 
 function Blacksmith.register_blacksmith()
     minetest.register_node("mts_pickcrafting:blacksmith", {
-        description = "Blacksmith",
+        description = "Vortex Blacksmith",
         tiles = {"mts_pickcrafting_pickaxe.png"},
         on_punch = function (pos, node, puncher, pointed_thing)
             local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
@@ -50,14 +50,19 @@ function Blacksmith.create_formspec()
 
     return "formspec_version[6]"..
         "size[16,9]"..
-        string.format("label[11,8;%s]", Blacksmith.get_total_mult():to_string())..
-        "label[11,1;This is a description]"..
+        "textarea[11,1;4.8,6;;;The Vortex Blacksmith will absorb the Minerals you have mined to get stronger. The boosts of the Minerals multiply with each other!]"..
         "scrollbaroptions[max=200;arrows=hide]"..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
         "scroll_container[1,1;9,9;scroll_mult;vertical;]"..
             "style_type[label;font_size=*1.7;textcolor=#e0ffe0]"..
             text_mults..
-        "scroll_container_end[]"
+        "scroll_container_end[]"..
+        "container[11,7.5;5,2]"..
+            "style_type[label;font_size=*1.2;textcolor=#ffffff]"..
+            "label[0,0;Total Multiplier]"..
+            "style_type[label;font_size=*1.8;textcolor=#00ff00]"..
+            string.format("label[0,0.5;x%s]", Blacksmith.get_total_mult():to_string())..
+        "container_end[]"
 end
 
 function Blacksmith.init_storage()
