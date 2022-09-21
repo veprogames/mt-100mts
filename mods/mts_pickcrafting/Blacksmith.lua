@@ -21,6 +21,16 @@ function Blacksmith.register_blacksmith()
             Blacksmith.show_formspec(clicker:get_player_name())
         end
     })
+
+    minetest.register_craft({
+        type = "shaped",
+        output = "mts_pickcrafting:blacksmith",
+        recipe = {
+            {"mts_default:rock", "mts_default:rock", "mts_default:rock"},
+            {"", "mts_default:pebble", ""},
+            {"mts_default:pebble", "mts_default:pebble", "mts_default:pebble"}
+        }
+    })
 end
 
 function Blacksmith.create_formspec()
