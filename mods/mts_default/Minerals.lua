@@ -49,7 +49,8 @@ function Minerals.register_mineral(definition)
         description = item_name .. "\n" .. tier_text,
         wield_image = image,
         inventory_image = image,
-        stack_max = 9999
+        stack_max = 9999,
+        _blacksmith_multiplier_id = tier
     })
 
     -- Pickaxe Recipe

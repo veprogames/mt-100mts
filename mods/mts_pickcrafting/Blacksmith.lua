@@ -14,6 +14,7 @@ function Blacksmith.register_blacksmith()
         on_punch = function (pos, node, puncher, pointed_thing)
             local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
             local item = PickaxeGenerator.generate(damage)
+            Blacksmith.absorb_inventory(puncher:get_player_name())
             puncher:get_inventory():add_item("main", item)
             Blacksmith.save()
         end,
@@ -63,6 +64,21 @@ function Blacksmith.create_formspec()
             "style_type[label;font_size=*1.8;textcolor=#00ff00]"..
             string.format("label[0,0.5;x%s]", Blacksmith.get_total_mult():to_string())..
         "container_end[]"
+end
+
+function Blacksmith.absorb_inventory(player_name)
+    local inv = minetest.get_inventory({type = "player", name = player_name})
+    if inv ~= nil then
+        local items = inv:get_list("main")
+        for k, item in pairs(items) do
+            local definition = item:get_definition()
+            if definition._blacksmith_multiplier_id ~= nil then
+                local idx = definition._blacksmith_multiplier_id
+                Blacksmith.data.multipliers[idx] = (Blacksmith.data.multipliers[idx] or 1) + item:get_count() * 0.01
+                inv:remove_item("main", item)
+            end
+        end
+    end
 end
 
 function Blacksmith.init_storage()
