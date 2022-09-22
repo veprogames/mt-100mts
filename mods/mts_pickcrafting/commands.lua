@@ -21,6 +21,7 @@ minetest.register_chatcommand("mts_blacksmith_test", {
         local m = 2 + 2 * math.random()
         local idx = math.random(100)
         Blacksmith.data.multipliers[idx] = m
+        Blacksmith.save()
         return true, "Multiplier <" .. idx .. "> set to x"..m
     end
 })

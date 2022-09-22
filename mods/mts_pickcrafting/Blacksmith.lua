@@ -166,6 +166,5 @@ minetest.register_on_player_receive_fields(function (player, formname, fields)
 end)
 
 Blacksmith.data = Blacksmith.init_storage()
---Blacksmith.load()
 
 return Blacksmith
