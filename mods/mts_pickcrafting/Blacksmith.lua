@@ -59,9 +59,11 @@ function Blacksmith.create_formspec()
     local description = [[The Vortex Blacksmith will absorb the Minerals you have mined to get stronger.
 The boosts of the Minerals multiply with each other!
 
+Punch the Blacksmith to craft a Pickaxe for 1 Stick. Pickaxes will deal at least 7 DPS.
+
 Every Mineral Drop adds +0.01 to their Multiplier.]]
 
-    local scroll_height = math.max(0, 10 * #mult_keys - 80)
+    local scroll_height = math.max(0, 6 * #mult_keys - 80)
 
     return "formspec_version[6]"..
         "size[16,9]"..
