@@ -6,6 +6,7 @@ Notations = {
     HebrewNotation = dofile(minetest.get_modpath("mts_bignumber").."/notations/hebrewnotation.lua"),
     ScientificNotation = dofile(minetest.get_modpath("mts_bignumber").."/notations/scientificnotation.lua"),
     EngineeringNotation = dofile(minetest.get_modpath("mts_bignumber").."/notations/engineeringnotation.lua"),
+    ThousandNotation = dofile(minetest.get_modpath("mts_bignumber").."/notations/thousandnotation.lua"),
     DynamicNotation = dofile(minetest.get_modpath("mts_bignumber").."/notations/dynamicnotation.lua")
 }
 
