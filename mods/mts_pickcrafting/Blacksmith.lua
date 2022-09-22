@@ -1,5 +1,6 @@
 Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 PickaxeGenerator = dofile(minetest.get_modpath("mts_pickcrafting").."/PickaxeGenerator.lua")
+Formatter = dofile(minetest.get_modpath("mts_pickcrafting").."/Formatter.lua")
 
 local storage = minetest.get_mod_storage()
 
@@ -76,7 +77,7 @@ Every Mineral Drop adds +0.01 to their Multiplier.]]
             "style_type[label;font_size=*1.2;textcolor=#ffffff]"..
             "label[0,0;Total Multiplier]"..
             "style_type[label;font_size=*1.8;textcolor=#00ff00]"..
-            string.format("label[0,0.5;x%s]", Blacksmith.get_total_mult():to_string())..
+            string.format("label[0,0.5;x%s]", Formatter.format(Blacksmith.get_total_mult(), 2, 2))..
         "container_end[]"
 end
 

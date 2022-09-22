@@ -1,14 +1,11 @@
-Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
-Notations = dofile(minetest.get_modpath("mts_bignumber").."/notations.lua")
+Formatter = dofile(minetest.get_modpath("mts_pickcrafting").."/Formatter.lua")
 
 Pickaxes = dofile(minetest.get_modpath("mts_default").."/Pickaxes.lua")
 PickaxeGenerator = {}
 
-local notation = Notations.DynamicNotation:new{big = Notations.LetterNotation:new(), limit = Big:new(10000)}
-
 local function get_description(damage)
     return minetest.colorize("#00c000", "Unique Pickaxe").."\n\n"..
-        minetest.colorize("#00ff00", notation:format(damage, 2)).." DPS"
+        minetest.colorize("#00ff00", Formatter.format(damage, 2)).." DPS"
 end
 
 function PickaxeGenerator.generate(damage)
