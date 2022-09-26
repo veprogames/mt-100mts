@@ -96,11 +96,8 @@ function Blacksmith.craft_pickaxe(player)
 
     -- require a stick for crafting
     if taken:get_count() >= 1 then
-        local damage = (Blacksmith.get_base_dps() * Big:new(math.random() * 2)):floor()
-        if damage < Big:new(7) then
-            damage = Big:new(7)
-        end
-        local item = PickaxeGenerator.generate(damage)
+        local base_damage = Blacksmith.get_base_dps()
+        local item = PickaxeGenerator.generate(base_damage)
         inv:add_item("main", item)
     else
         minetest.chat_send_all(minetest.colorize("red", "Not enough Sticks!"))
