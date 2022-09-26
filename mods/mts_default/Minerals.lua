@@ -3,7 +3,7 @@ Minerals = {}
 
 function Minerals.get_hp_at_tier(tier)
     local t = tier - 1
-    return Big:new(1.2 + 0.05 * t) ^ t * Big:new(10 + 5 * t)
+    return Big:new(1.2 + 0.05 * t) ^ t * Big:new(10 + 7 * t)
 end
 
 function Minerals.register_stone(tier)
