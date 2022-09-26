@@ -11,7 +11,9 @@ Blacksmith = {
 function Blacksmith.register_blacksmith()
     minetest.register_node("mts_pickcrafting:blacksmith", {
         description = "Vortex Blacksmith",
-        tiles = {"mts_pickcrafting_pickaxe.png"},
+        drawtype = "mesh",
+        mesh = "vortex_anvil.obj",
+        tiles = {"mts_pickcrafting_anvil.png"},
         on_punch = function (pos, node, puncher, pointed_thing)
             Blacksmith.craft_pickaxe(puncher)
         end,
