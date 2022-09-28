@@ -1,5 +1,5 @@
 Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
-Formatter = dofile(minetest.get_modpath("mts_pickcrafting").."/Formatter.lua")
+Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 
 Pickaxes = dofile(minetest.get_modpath("mts_default").."/Pickaxes.lua")
 PickaxeGenerator = {}

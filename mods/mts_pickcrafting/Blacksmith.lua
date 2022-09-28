@@ -1,6 +1,6 @@
 Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 PickaxeGenerator = dofile(minetest.get_modpath("mts_pickcrafting").."/PickaxeGenerator.lua")
-Formatter = dofile(minetest.get_modpath("mts_pickcrafting").."/Formatter.lua")
+Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 
 local storage = minetest.get_mod_storage()
 
