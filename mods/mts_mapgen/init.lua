@@ -24,7 +24,7 @@ local chances = {
 
     {content = c_wood, ymax = -1, ymin = -100, chance = 0.015},
 
-    {content = c_bedrock, ymax = -25, ymin = -250, chance = 0.02},
+    {content = c_bedrock, ymax = -5, ymin = -250, chance = 0.025},
     {content = c_bedrock, ymax = -250, ymin = -1000, chance = 0.04},
     {content = c_bedrock, ymax = -1000, ymin = -1500, chance = 0.08},
     {content = c_bedrock, ymax = -1500, ymin = -2000, chance = 0.2},
@@ -35,7 +35,7 @@ local chances = {
     {content = c_pocket_sun, ymax = -1401, ymin = -2022, chance = 0.007},
 
     -- liquids
-    {content = c_magma, ymax = -60, ymin = -250, chance = 0.002},
+    {content = c_magma, ymax = -30, ymin = -250, chance = 0.002},
     {content = c_magma, ymax = -251, ymin = -400, chance = 0.003},
     {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
 
