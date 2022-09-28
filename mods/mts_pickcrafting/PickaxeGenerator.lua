@@ -57,6 +57,18 @@ function PickaxeGenerator.generate(base_damage)
     item:get_meta():set_string("description", get_description(rarity, damage))
     item:get_meta():set_tool_capabilities(Pickaxes.get_tool_capabilities(damage))
     item:get_meta():set_string("color", rarity.color)
+    item:get_meta():set_string("pickaxe_dps", damage:to_string())
+    return item
+end
+
+function PickaxeGenerator.refresh_pickaxe(item)
+    local meta = item:get_meta()
+    if item:get_name() == "mts_pickcrafting:pickaxe" and meta:get_string("pickaxe_dps") ~= nil then
+        local damage = Big.parse(meta:get_string("pickaxe_dps"))
+        if damage ~= nil then
+            meta:set_tool_capabilities(Pickaxes.get_tool_capabilities(damage))
+        end
+    end
     return item
 end
 
