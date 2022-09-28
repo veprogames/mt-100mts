@@ -2,7 +2,6 @@
 local function create_metal_definition(name, color)
     return {
         name = name,
-        drop_name = "Lump",
         item_name = "Ingot",
         block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:"..color..")",
         drop_image = "mts_default_lump.png^[multiply:"..color,
@@ -15,7 +14,6 @@ end
 local function create_gem_definition(name, color)
     return {
         name = name,
-        drop_name = "Shard",
         item_name = "Gem",
         block_image = "mts_default_stone.png^(mts_default_ore_gem.png^[multiply:"..color..")",
         drop_image = "mts_default_gem_shard.png^[multiply:"..color,
@@ -29,20 +27,16 @@ MineralList = {
     [2] = create_metal_definition("Copper", "#fc8c03"),
     [3] = {
         name = "Bone",
-        drop_name = "Bone Shard",
         item_name = "Bone",
         block_image = "mts_default_stone.png^(mts_default_ore_bone.png)",
-        drop_image = "mts_default_bone_shard.png",
         item_image = "mts_default_ore_bone.png",
         pickaxe_color = "#ffffd0",
         concat_names = false
     },
     [4] = {
         name = "Iron",
-        drop_name = "Lump",
         item_name = "Ingot",
         block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:#cca992)",
-        drop_image = "mts_default_lump.png^[multiply:#cca992",
         item_image = "mts_default_ingot.png",
         pickaxe_color = "#ffffff"
     },
@@ -50,10 +44,8 @@ MineralList = {
     [6] = create_metal_definition("Silver", "#b0b0b0"),
     [7] = {
         name = "Amber",
-        drop_name = "Shard",
         item_name = "Rock",
         block_image = "mts_default_stone.png^(mts_default_ore_2.png^[multiply:#fc4503)",
-        drop_image = "mts_default_fragment.png^[multiply:#fc4503",
         item_image = "mts_default_rock.png^[multiply:#fc4503",
         pickaxe_color = "#fc4503"
     },

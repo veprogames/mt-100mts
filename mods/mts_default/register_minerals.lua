@@ -5,7 +5,6 @@ MineralDefinition = dofile(minetest.get_modpath("mts_default").."/MineralDefinit
 for i = 1, 100 do
     local def = MineralDefinition.get_definition(i)
     Minerals.register_mineral(def)
-    Pickaxes.register_pickaxe(def)
 end
 
 for i = 1, 100 do

@@ -22,26 +22,14 @@ end
 function Minerals.register_mineral(definition)
     local tier = definition.tier
 
-    local mineral_drop_id = "mts_default:mineral_drop"..tier
     local mineral_item_id = "mts_default:mineral_item"..tier
 
     local tier_text = minetest.colorize("#cccccc", "Lv.").." "..minetest.colorize("#00ff00", tier)
 
-    local drop_name = definition.name.." "..definition.drop_name
     local item_name = definition.name.." "..definition.item_name
     if definition.concat_names == false then
-        drop_name = definition.drop_name
         item_name = definition.item_name
     end
-
-    -- Drop (like Lumps, Nuggets or Shards)
-    local image = definition.drop_image
-    minetest.register_craftitem(mineral_drop_id, {
-        description = drop_name .. "\n" .. tier_text,
-        wield_image = image,
-        inventory_image = image,
-        stack_max = 9999
-    })
 
     -- Item used to craft Pickaxes
     image = definition.item_image
@@ -51,17 +39,6 @@ function Minerals.register_mineral(definition)
         inventory_image = image,
         stack_max = 9999,
         _blacksmith_multiplier_id = tier
-    })
-
-    -- Pickaxe Recipe
-    minetest.register_craft({
-        type = "shaped",
-        output = "mts_default:pickaxe"..tier,
-        recipe = {
-            {mineral_item_id, mineral_item_id, mineral_item_id},
-            {"", "mts_default:stick", ""},
-            {"", "mts_default:stick", ""}
-        }
     })
 
     -- Mineral Block

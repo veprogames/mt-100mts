@@ -1,10 +1,6 @@
 Minerals = dofile(minetest.get_modpath("mts_default").."/Minerals.lua")
 Pickaxes = {}
 
-function Pickaxes.get_damage_at_tier(tier)
-    return Big:new(2) ^ tier
-end
-
 function Pickaxes.get_tool_capabilities(damage)
     local times = {}
 
@@ -44,20 +40,6 @@ function Pickaxes.get_tool_capabilities(damage)
             }
         }
     }
-end
-
-function Pickaxes.register_pickaxe(definition)
-    local tier = definition.tier
-    local tier_text = minetest.colorize("#cccccc", "Lv.").." "..minetest.colorize("#00ff00", tier)
-
-    local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
-    minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe\n" .. tier_text .. "\n" .. minetest.colorize("#00ff00", Pickaxes.get_damage_at_tier(tier)).." DPS",
-        wield_scale = {x=1.4, y=1.4, z=1.4},
-        wield_image=image,
-        inventory_image=image,
-        tool_capabilities = Pickaxes.get_tool_capabilities(Pickaxes.get_damage_at_tier(tier))
-    })
 end
 
 return Pickaxes
