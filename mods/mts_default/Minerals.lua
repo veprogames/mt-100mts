@@ -1,4 +1,5 @@
 Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
+Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 Minerals = {}
 
 function Minerals.get_hp_at_tier(tier)
@@ -26,17 +27,20 @@ function Minerals.register_mineral(definition)
 
     local tier_text = minetest.colorize("#cccccc", "Lv.").." "..minetest.colorize("#00ff00", tier)
 
+    local hp = Minerals.get_hp_at_tier(tier)
+
     local item_name = definition.name.." "..definition.item_name
     if definition.concat_names == false then
         item_name = definition.item_name
     end
 
     -- Item used to craft Pickaxes
-    image = definition.item_image
+    local hp_text = minetest.colorize("#cccccc", "HP") .. " " .. minetest.colorize("#00ffb0", Formatter.format(hp))
+    local item_description = table.concat({item_name, tier_text, hp_text}, "\n")
     minetest.register_craftitem(mineral_item_id, {
-        description = item_name .. "\n" .. tier_text,
-        wield_image = image,
-        inventory_image = image,
+        description = item_description,
+        wield_image = definition.item_image,
+        inventory_image = definition.item_image,
         stack_max = 9999,
         _blacksmith_multiplier_id = tier
     })

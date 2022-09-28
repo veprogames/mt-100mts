@@ -1,6 +1,10 @@
 Minerals = dofile(minetest.get_modpath("mts_default").."/Minerals.lua")
 Pickaxes = {}
 
+function Pickaxes.get_speed_multi(damage)
+    return 1 + (damage + Big:new(1)):log10() / 4
+end
+
 function Pickaxes.get_tool_capabilities(damage)
     local times = {}
 
@@ -13,7 +17,7 @@ function Pickaxes.get_tool_capabilities(damage)
         times[i] = time
     end
 
-    local speed_multi = 1 + (damage + Big:new(1)):log10() / 4
+    local speed_multi = Pickaxes.get_speed_multi(damage)
 
     return {
         full_punch_interval = 0.9,

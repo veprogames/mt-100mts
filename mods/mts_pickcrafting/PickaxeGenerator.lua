@@ -44,8 +44,10 @@ local function generate_stats(base_damage)
 end
 
 local function get_description(rarity, damage)
-    return minetest.colorize(rarity.color, rarity.name .. " Pickaxe").."\n\n"..
-        minetest.colorize("#00ff00", Formatter.format(damage, 2)).." DPS"
+    local speed_multi = Pickaxes.get_speed_multi(damage)
+    return minetest.colorize(rarity.color, rarity.name .. " Pickaxe").."\n"..
+        minetest.colorize("#00ff00", Formatter.format(damage, 2)).." DPS" .."\n"..
+        minetest.colorize("#00ffb0", string.format("x%.2f", speed_multi)).." Mining Speed on:\nLights and Wood"
 end
 
 function PickaxeGenerator.generate(base_damage)
