@@ -5,6 +5,7 @@ minetest.register_chatcommand("mts_tutorial", {
             "1. Dig down and mine Stones\n"..
             "2. Craft 5 Pebbles into a Rock\n"..
             "3. Craft a Vortex Anvil out of 3 Rocks and 4 Pebble\n"..
-            "4. Mine Minerals and craft stronger Pickaxes"
+            "4. Mine Minerals and craft stronger Pickaxes\n\n"..
+            "Avoid dying, as it will erase all minerals that are currently in your inventory"
     end
 })
