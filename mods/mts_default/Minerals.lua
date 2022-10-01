@@ -35,7 +35,7 @@ function Minerals.register_mineral(definition)
     end
 
     -- Item used to craft Pickaxes
-    local hp_text = minetest.colorize("#cccccc", "HP") .. " " .. minetest.colorize("#00ffb0", Formatter.format(hp))
+    local hp_text = minetest.colorize("#cccccc", "HP") .. " " .. minetest.colorize("#00ffb0", Formatter.format(hp, 2))
     local item_description = table.concat({item_name, tier_text, hp_text}, "\n")
     minetest.register_craftitem(mineral_item_id, {
         description = item_description,
