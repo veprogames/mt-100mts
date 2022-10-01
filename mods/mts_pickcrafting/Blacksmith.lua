@@ -114,6 +114,10 @@ function Blacksmith.absorb_inventory(player_name)
                 local idx = definition._blacksmith_multiplier_id
                 Blacksmith.data.multipliers[idx] = (Blacksmith.data.multipliers[idx] or 1) + item:get_count() * 0.01
                 inv:remove_item("main", item)
+            elseif definition._blacksmith_power_id ~= nil then
+                local idx = definition._blacksmith_power_id
+                Blacksmith.data.powers[idx] = (Blacksmith.data.powers[idx] or 1) + item:get_count() * 0.001
+                inv:remove_item("main", item)
             end
         end
         Blacksmith.save()

@@ -39,6 +39,10 @@ function Pickaxes.get_tool_capabilities(damage)
                     [3] = 12 / speed_multi
                 }
             },
+            powercrystalline = {
+                uses = 0,
+                times = {[1] = 12 / speed_multi}
+            },
             teleportey = {
               times = {[1] = 1, [2] = 3}
             }
