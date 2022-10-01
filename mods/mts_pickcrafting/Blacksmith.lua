@@ -58,6 +58,14 @@ function Blacksmith.create_formspec()
         end
     end
 
+    local crystal_power = ""
+    if Blacksmith.get_total_pow() > 1 then 
+        crystal_power = "container[1,7.8;4,1]"..
+            "item_image[0,0;1,1;mts_powercrystals:crystal]"..
+            string.format("label[1.2,0.5;^%.3f]", Blacksmith.get_total_pow())..
+        "container_end[]"
+    end
+
     local description = [[The Vortex Blacksmith will absorb the Minerals you have mined to get stronger.
 The boosts of the Minerals multiply with each other!
 
@@ -72,16 +80,17 @@ Every Mineral Drop adds +0.01 to their Multiplier.]]
         string.format("textarea[11,1;4.8,5;;;%s]", description)..
         string.format("scrollbaroptions[max=%d;arrows=hide]", scroll_height)..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
-        "scroll_container[1,1;9,9;scroll_mult;vertical;]"..
+        "scroll_container[1,1;9,8;scroll_mult;vertical;]"..
             "style_type[label;font_size=*1.7;textcolor=#e0ffe0]"..
             text_mults..
         "scroll_container_end[]"..
+        crystal_power..
         "button[11,6.5;2,0.5;absorb;Absorb!]"..
         "container[11,7.5;5,2]"..
             "style_type[label;font_size=*1.2;textcolor=#ffffff]"..
-            "label[0,0;Total Multiplier]"..
+            "label[0,0;Base DPS]"..
             "style_type[label;font_size=*1.8;textcolor=#00ff00]"..
-            string.format("label[0,0.5;x%s]", Formatter.format(Blacksmith.get_total_mult(), 2, 2))..
+            string.format("label[0,0.5;%s]", Formatter.format(Blacksmith.get_base_dps(), 2, 2))..
         "container_end[]"
 end
 
