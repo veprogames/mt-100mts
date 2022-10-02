@@ -1,39 +1,11 @@
+Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
+Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 Minerals = {}
 
-local function get_tool_capabilities(tier)
-    local times = {}
-
-    for i = 1, tier + 2 do
-        local time = 2 ^ (i - tier) * (0.8 + 0.005 * tier)
-        time = math.max(time, 0.2)
-        times[i] = time
-    end
-
-    return {
-        full_punch_interval = 0.9,
-        max_drop_level = 0,
-        groupcaps = {
-            cracky = {
-                uses = 0,
-                times = times
-            },
-            choppy = {
-                uses = 0,
-                times = {[1] = math.max(0.25, 5 * 0.9 ^ tier)}
-            },
-            lighty = {
-                uses = 0,
-                times = {
-                    [1] = 3 / (1 + 0.1 * tier),
-                    [2] = 6 / (1 + 0.1 * tier),
-                    [3] = 12 / (1 + 0.1 * tier)
-                }
-            },
-            teleportey = {
-              times = {[1] = 1, [2] = 3}
-            }
-        }
-    }
+function Minerals.get_hp_at_tier(tier)
+    local t = tier - 1
+    local p = math.max(1, 0.96 + 0.001 * t)
+    return (Big:new(1.2 + 0.05 * t) ^ t * Big:new(10 + 7 * t)) ^ p
 end
 
 function Minerals.register_stone(tier)
@@ -52,62 +24,26 @@ end
 function Minerals.register_mineral(definition)
     local tier = definition.tier
 
-    local mineral_drop_id = "mts_default:mineral_drop"..tier
     local mineral_item_id = "mts_default:mineral_item"..tier
 
     local tier_text = minetest.colorize("#cccccc", "Lv.").." "..minetest.colorize("#00ff00", tier)
 
-    local drop_name = definition.name.." "..definition.drop_name
+    local hp = Minerals.get_hp_at_tier(tier)
+
     local item_name = definition.name.." "..definition.item_name
     if definition.concat_names == false then
-        drop_name = definition.drop_name
         item_name = definition.item_name
     end
 
-    -- Pickaxe
-    local image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:"..definition.pickaxe_color..")"
-    minetest.register_craftitem("mts_default:pickaxe"..tier, {
-        description = definition.name.." Pickaxe\n" .. tier_text,
-        wield_scale = {x=1.4, y=1.4, z=1.4},
-        wield_image=image,
-        inventory_image=image,
-        tool_capabilities = get_tool_capabilities(tier)
-    })
-
-    -- Drop (like Lumps, Nuggets or Shards)
-    image = definition.drop_image
-    minetest.register_craftitem(mineral_drop_id, {
-        description = drop_name .. "\n" .. tier_text,
-        wield_image = image,
-        inventory_image = image,
-        stack_max = 9999
-    })
-
     -- Item used to craft Pickaxes
-    image = definition.item_image
+    local hp_text = minetest.colorize("#cccccc", "HP") .. " " .. minetest.colorize("#00ffb0", Formatter.format(hp, 2))
+    local item_description = table.concat({item_name, tier_text, hp_text}, "\n")
     minetest.register_craftitem(mineral_item_id, {
-        description = item_name .. "\n" .. tier_text,
-        wield_image = image,
-        inventory_image = image,
-        stack_max = 9999
-    })
-
-    -- Mineral Item (Ingot etc.) Recipe
-    minetest.register_craft({
-        type = "shapeless",
-        output = mineral_item_id,
-        recipe = {mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id, mineral_drop_id}
-    })
-
-    -- Pickaxe Recipe
-    minetest.register_craft({
-        type = "shaped",
-        output = "mts_default:pickaxe"..tier,
-        recipe = {
-            {mineral_item_id, mineral_item_id, mineral_item_id},
-            {"", "mts_default:stick", ""},
-            {"", "mts_default:stick", ""}
-        }
+        description = item_description,
+        wield_image = definition.item_image,
+        inventory_image = definition.item_image,
+        stack_max = 9999,
+        _blacksmith_multiplier_id = tier
     })
 
     -- Mineral Block
@@ -115,11 +51,7 @@ function Minerals.register_mineral(definition)
         description = definition.name,
         tiles = {definition.block_image},
         groups = {cracky=tier},
-        drop = {
-            items = {
-                {items = {mineral_drop_id}}
-            }
-        },
+        drop = mineral_item_id,
         after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
             local meta = digger:get_meta()

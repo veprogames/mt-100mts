@@ -36,8 +36,8 @@ minetest.register_craftitem("mts_default:stick", {
 
 minetest.register_craftitem("mts_default:pebble", {
     description = "Pebble",
-    wield_image = "mts_default_lump.png^[multiply:#707070",
-    inventory_image = "mts_default_lump.png^[multiply:#707070",
+    wield_image = "mts_default_pebble.png^[multiply:#707070",
+    inventory_image = "mts_default_pebble.png^[multiply:#707070",
     stack_max = 9999
 })
 
@@ -46,22 +46,4 @@ minetest.register_craftitem("mts_default:rock", {
     wield_image = "mts_default_rock.png^[multiply:#707070",
     inventory_image = "mts_default_rock.png^[multiply:#707070",
     stack_max = 9999
-})
-
-local pickaxe_image = "mts_default_pickaxe_base.png^(mts_default_pickaxe_head.png^[multiply:#707070)"
-minetest.register_craftitem("mts_default:stone_pickaxe", {
-    description = "Stone Pickaxe\n\n"..
-        minetest.colorize("#c0c0c0", "A Simple Pickaxe that can be used to break the first Ores").."\n"..
-        minetest.colorize("#cccccc", "Tier/Lv.").." "..minetest.colorize("#00ff00", "0"),
-    wield_image = pickaxe_image,
-    inventory_image = pickaxe_image,
-    wield_scale = {x=1.4, y=1.4, z=1.4},
-    tool_capabilities = {
-        groupcaps = {
-            cracky = {
-                uses = 0,
-                times = {[1] = 1.2, [2] = 3, [3] = 7}
-            }
-        }
-    }
 })
