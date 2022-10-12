@@ -52,16 +52,27 @@ MineralGenerator.create_elemental_definition = function(name, color)
     }
 end
 
+MineralGenerator.create_essence_definition = function(name, color, color2)
+    return {
+        name = name,
+        item_name = "Essence",
+        block_image = "mts_default_stone.png^(mts_default_essence_base.png^[multiply:"..color..")^(mts_default_ore.png^[multiply:"..color2..")",
+        item_image = "(mts_default_essence_base.png^[multiply:"..color..")^(mts_default_ingot.png^[multiply:"..color2..")"
+    }
+end
+
 MineralGenerator.generate_for_tier = function(tier)
     math.randomseed(tier)
     local name = random_name(math.random(5, 8))
     local color = random_color()
-    local type = math.random(1, 3)
+    local type = math.random(1, 4)
     local definition
     if type == 1 then
         definition = MineralGenerator.create_metal_definition(name, color)
     elseif type == 2 then
         definition = MineralGenerator.create_gem_definition(name, color)
+    elseif type == 3 then
+        definition = MineralGenerator.create_essence_definition(name, random_color(), color)
     else
         definition = MineralGenerator.create_elemental_definition(name, color)
     end
