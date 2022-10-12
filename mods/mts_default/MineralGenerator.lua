@@ -23,27 +23,32 @@ local function random_color()
     return string.format("#%02X%02X%02X", math.random(0, 255), math.random(0, 255), math.random(0, 255))
 end
 
--- shortcut for creating metals that drop lumps that craft to ingots
+-- shortcut methods for creating definitions
+
 MineralGenerator.create_metal_definition = function(name, color)
     return {
         name = name,
         item_name = "Ingot",
         block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:"..color..")",
-        drop_image = "mts_default_lump.png^[multiply:"..color,
-        item_image = "mts_default_ingot.png^[multiply:"..color,
-        pickaxe_color = color
+        item_image = "mts_default_ingot.png^[multiply:"..color
     }
 end
 
--- shortcut for creating gems that drop shards that craft to gems
 MineralGenerator.create_gem_definition = function(name, color)
     return {
         name = name,
         item_name = "Gem",
         block_image = "mts_default_stone.png^(mts_default_ore_gem.png^[multiply:"..color..")",
-        drop_image = "mts_default_gem_shard.png^[multiply:"..color,
-        item_image = "mts_default_gem.png^[multiply:"..color,
-        pickaxe_color = color
+        item_image = "mts_default_gem.png^[multiply:"..color
+    }
+end
+
+MineralGenerator.create_elemental_definition = function(name, color)
+    return {
+        name = name,
+        item_name = "Elemental",
+        block_image = "mts_default_stone.png^(mts_default_elemental.png^[multiply:"..color..")",
+        item_image = "mts_default_elemental.png^[multiply:"..color
     }
 end
 
@@ -51,12 +56,14 @@ MineralGenerator.generate_for_tier = function(tier)
     math.randomseed(tier)
     local name = random_name(math.random(5, 8))
     local color = random_color()
-    local type = math.random(1, 2)
+    local type = math.random(1, 3)
     local definition
     if type == 1 then
         definition = MineralGenerator.create_metal_definition(name, color)
-    else
+    elseif type == 2 then
         definition = MineralGenerator.create_gem_definition(name, color)
+    else
+        definition = MineralGenerator.create_elemental_definition(name, color)
     end
     definition.tier = tier
     return definition
