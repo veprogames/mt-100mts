@@ -85,7 +85,8 @@ Every Mineral Drop adds +0.01 to their Multiplier.]]
             text_mults..
         "scroll_container_end[]"..
         crystal_power..
-        "button[11,6.5;2,0.5;absorb;Absorb!]"..
+        "button[11,6;2,0.8;absorb;Absorb!]"..
+        "button[13.5,6;2,0.8;craft;Craft!\n(1 Stick)]"..
         "container[11,7.5;5,2]"..
             "style_type[label;font_size=*1.2;textcolor=#ffffff]"..
             "label[0,0;Base DPS]"..
@@ -167,15 +168,6 @@ end
 function Blacksmith.save()
     storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
 end
-
-minetest.register_on_player_receive_fields(function (player, formname, fields)
-    if formname == "mts_pickcrafting:blacksmith" then
-        if fields.absorb then
-            Blacksmith.absorb_inventory(player:get_player_name())
-            Blacksmith.show_formspec(player:get_player_name())
-        end
-    end
-end)
 
 Blacksmith.data = Blacksmith.init_storage()
 
