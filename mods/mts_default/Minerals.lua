@@ -4,7 +4,12 @@ Minerals = {}
 
 function Minerals.get_hp_at_tier(tier)
     local t = tier - 1
-    local p = math.max(1, 0.96 + 0.001 * t)
+    local p = math.max(1, 0.975 + 0.001 * t)
+        * math.max(1, 1 + 0.0015 * (t - 50))
+        * math.max(1, 1 + 0.002 * (t - 20))
+    if t == 99 then --make last mineral extra hard
+        p = p * 1.02
+    end
     return (Big:new(1.2 + 0.05 * t) ^ t * Big:new(10 + 7 * t)) ^ p
 end
 
