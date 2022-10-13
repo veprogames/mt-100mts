@@ -47,7 +47,7 @@ function Minerals.register_mineral(definition)
         description = item_description,
         wield_image = definition.item_image,
         inventory_image = definition.item_image,
-        stack_max = 9999,
+        stack_max = 4,
         _blacksmith_multiplier_id = tier
     })
 
