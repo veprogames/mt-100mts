@@ -33,12 +33,13 @@ local chances = {
 
     -- lights
     {content = c_active_coal, ymax = -5, ymin = -400, chance = 0.011},
+    {content = c_glowstone, ymax = -70, ymin = -199, chance = 0.001},
     {content = c_glowstone, ymax = -200, ymin = -1600, chance = 0.008},
     {content = c_pocket_sun, ymax = -1401, ymin = -2022, chance = 0.007},
 
     -- liquids
-    {content = c_magma, ymax = -30, ymin = -250, chance = 0.002},
-    {content = c_magma, ymax = -251, ymin = -400, chance = 0.003},
+    {content = c_magma, ymax = -30, ymin = -250, chance = 0.004},
+    {content = c_magma, ymax = -251, ymin = -400, chance = 0.006},
     {content = c_magma, ymax = -401, ymin = -800, chance = 0.008},
 
     {content = c_lava, ymax = -801, ymin = -1200, chance = 0.01},
