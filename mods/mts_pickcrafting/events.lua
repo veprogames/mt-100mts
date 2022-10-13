@@ -11,7 +11,6 @@ end)
 
 minetest.register_on_player_receive_fields(function (player, formname, fields)
     if formname == "mts_pickcrafting:blacksmith" then
-        minetest.chat_send_all("blacksmith")
         if fields.absorb then
             Blacksmith.absorb_inventory(player:get_player_name())
             Blacksmith.show_formspec(player:get_player_name())
