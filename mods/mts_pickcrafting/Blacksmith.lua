@@ -80,7 +80,7 @@ Every Mineral Drop adds +0.01 to their Multiplier.]]
         string.format("textarea[11,1;4.8,5;;;%s]", description)..
         string.format("scrollbaroptions[max=%d;arrows=hide]", scroll_height)..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
-        "scroll_container[1,1;9,8;scroll_mult;vertical;]"..
+        "scroll_container[1,1;9,6.7;scroll_mult;vertical;]"..
             "style_type[label;font_size=*1.7;textcolor=#e0ffe0]"..
             text_mults..
         "scroll_container_end[]"..
