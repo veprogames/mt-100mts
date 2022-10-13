@@ -66,7 +66,7 @@ function Minerals.register_mineral(definition)
                 minetest.chat_send_all(minetest.colorize("#00ff30", name).." reached Mineral Lv. "..minetest.colorize("#00ff00", tier).."!")
                 if tier >= 100 then
                     minetest.chat_send_player(name, "Congratulations on reaching the last Mineral!\n"..
-                    "Now you can craft the best Pickaxe!\n"..
+                    "Your Blacksmith is still hungry. How high can you get your Pickaxe DPS?\n"..
                     "Thanks for playing "..minetest.colorize("#00ff00", "100 Minerals to success").."!")
                 end
                 meta:set_int("highest_mineral_level", tier)
