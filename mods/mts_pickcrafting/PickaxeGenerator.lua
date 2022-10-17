@@ -13,14 +13,6 @@ local rarities = {
     {name = "Cosmic", color = "#004080"}
 }
 
-local function rgb_to_hex(r, g, b)
-    return string.format("#%02X%02X%02X", r, g, b)
-end
-
-local function random_color()
-    return rgb_to_hex(math.random(50, 255), math.random(50, 255), math.random(50, 255))
-end
-
 local function generate_stats(base_damage)
     local rarity = 1
 
@@ -33,7 +25,7 @@ local function generate_stats(base_damage)
     end
 
     local r = rarity - 1
-    local final_damage = base_damage * Big:new(0.5 + math.random() * 1.5) * Big:new(1.6) ^ r
+    local final_damage = base_damage * Big:new(1.0 + math.random()) * Big:new(1.6) ^ r
     final_damage = final_damage ^ (1 + 0.002 * r)
     if final_damage < Big:new(7) then
         final_damage = Big:new(7)
