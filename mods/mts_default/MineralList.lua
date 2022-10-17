@@ -1,72 +1,92 @@
--- shortcut for creating metals that drop lumps that craft to ingots
-local function create_metal_definition(name, color)
-    return {
-        name = name,
-        drop_name = "Lump",
-        item_name = "Ingot",
-        block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:"..color..")",
-        drop_image = "mts_default_lump.png^[multiply:"..color,
-        item_image = "mts_default_ingot.png^[multiply:"..color,
-        pickaxe_color = color
-    }
+MineralGenerator = dofile(minetest.get_modpath("mts_default").."/MineralGenerator.lua")
+
+local function metal(name, color)
+    return MineralGenerator.create_metal_definition(name, color)
 end
 
--- shortcut for creating gems that drop shards that craft to gems
-local function create_gem_definition(name, color)
-    return {
-        name = name,
-        drop_name = "Shard",
-        item_name = "Gem",
-        block_image = "mts_default_stone.png^(mts_default_ore_gem.png^[multiply:"..color..")",
-        drop_image = "mts_default_gem_shard.png^[multiply:"..color,
-        item_image = "mts_default_gem.png^[multiply:"..color,
-        pickaxe_color = color
-    }
+local function gem(name, color)
+    return MineralGenerator.create_gem_definition(name, color)
+end
+
+local function elemental(name, color)
+    return MineralGenerator.create_elemental_definition(name, color)
+end
+
+local function essence(name, color, color2)
+    return MineralGenerator.create_essence_definition(name, color, color2)
 end
 
 MineralList = {
-    [1] = create_metal_definition("Tin", "#8f5e1e"),
-    [2] = create_metal_definition("Copper", "#fc8c03"),
+    [1] = metal("Tin", "#8f5e1e"),
+    [2] = metal("Copper", "#fc8c03"),
     [3] = {
         name = "Bone",
-        drop_name = "Bone Shard",
         item_name = "Bone",
         block_image = "mts_default_stone.png^(mts_default_ore_bone.png)",
-        drop_image = "mts_default_bone_shard.png",
         item_image = "mts_default_ore_bone.png",
-        pickaxe_color = "#ffffd0",
         concat_names = false
     },
     [4] = {
         name = "Iron",
-        drop_name = "Lump",
         item_name = "Ingot",
         block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:#cca992)",
-        drop_image = "mts_default_lump.png^[multiply:#cca992",
-        item_image = "mts_default_ingot.png",
-        pickaxe_color = "#ffffff"
+        item_image = "mts_default_ingot.png"
     },
-    [5] = create_metal_definition("Tungsten", "#8baf8c"),
-    [6] = create_metal_definition("Silver", "#b0b0b0"),
-    [7] = {
+    [5] = metal("Lead", "#292630"),
+    [6] = metal("Tungsten", "#8baf8c"),
+    [7] = metal("Silver", "#b0b0b0"),
+    [8] = {
         name = "Amber",
-        drop_name = "Shard",
         item_name = "Rock",
         block_image = "mts_default_stone.png^(mts_default_ore_2.png^[multiply:#fc4503)",
-        drop_image = "mts_default_fragment.png^[multiply:#fc4503",
-        item_image = "mts_default_rock.png^[multiply:#fc4503",
-        pickaxe_color = "#fc4503"
+        item_image = "mts_default_rock.png^[multiply:#fc4503"
     },
-    [8] = create_gem_definition("Citrine", "#b3a727"),
-    [9] = create_metal_definition("Gold", "#ffff00"),
-    [10] = create_metal_definition("Platinum", "#1cc7bb"),
-    [11] = create_gem_definition("Topaz", "#b39727"),
-    [12] = create_gem_definition("Amethyst", "#c73dcc"),
-    [13] = create_gem_definition("Emerald", "#2bb01c"),
-    [14] = create_gem_definition("Ruby", "#f01707"),
-    [15] = create_gem_definition("Sapphire", "#1a09d9"),
-    [16] = create_metal_definition("Mithril", "#0c6948"),
-    [17] = create_gem_definition("Diamond", "#ffffff")
+    [9] = gem("Citrine", "#b3a727"),
+    [10] = metal("Gold", "#ffff00"),
+    [11] = gem("Mese", "#ffff00"),
+    [12] = metal("Platinum", "#1cc7bb"),
+    [13] = gem("Topaz", "#b39727"),
+    [14] = gem("Amethyst", "#c73dcc"),
+    [15] = gem("Emerald", "#2bb01c"),
+    [16] = gem("Ruby", "#f01707"),
+    [17] = gem("Sapphire", "#1a09d9"),
+    [18] = metal("Mithril", "#0c6948"),
+    [19] = gem("Diamond", "#ffffff"),
+    [20] = metal("Orichalcum", "#931e80"),
+    [21] = gem("Onyx", "#202020"),
+    [22] = elemental("Avium", "#f0f0ff"),
+    [23] = metal("Adamantium", "#7a4211"),
+    [24] = gem("Radiantum", "#22c437"),
+    [25] = {
+        name = "Hybridium",
+        item_name = "Bunch",
+        block_image = "mts_default_stone.png^(mts_default_ore.png^[multiply:#0080ff)^(mts_default_ore_gem.png^[multiply:#00ffff)",
+        item_image = "(mts_default_ingot.png^[multiply:#0080ff)^(mts_default_gem.png^[multiply:#00ffff)"
+    },
+    [26] = essence("Earthly", "#00c000", "#805000"),
+    [27] = elemental("Hydronium", "#0060ff"),
+    [28] = gem("<v0iD>", "#000000"),
+    [29] = {
+        name = "GRADIUM",
+        item_name = "Combinate",
+        block_image = "mts_default_stone.png"..
+            "^(mts_default_ore.png^[multiply:#ff0000)"..
+            "^(mts_default_ore.png^[multiply:#ff4000^[transformFXR90)"..
+            "^(mts_default_ore.png^[multiply:#ff8000^[transformR180)"..
+            "^(mts_default_ore.png^[multiply:#ffb000^[transformFYR270)",
+        item_image = "(mts_default_ingot.png^[multiply:#0080ff)"..
+            "^(mts_default_ingot.png^[multiply:#ff0000)"..
+            "^(mts_default_ingot.png^[multiply:#ff4000^[transformR90])"..
+            "^(mts_default_ingot.png^[multiply:#ff8000^[transformFY])"..
+            "^(mts_default_ingot.png^[multiply:#ffb000^[transformFYR90])"
+    },
+    [100] = {
+        name = minetest.colorize("#bc5090", "ULTIMATE ") .. minetest.colorize("#ff6361", "Omega-Ultrium")
+            .. minetest.colorize("#ffa600", " (FINALIZED)"),
+        item_name = minetest.colorize("#ffd600", "[Materialized]"),
+        block_image = "mts_default_stone.png^mts_default_ultimatum.png",
+        item_image = "mts_default_ultimatum.png"
+    }
 }
 
 return MineralList
