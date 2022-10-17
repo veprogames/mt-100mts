@@ -24,7 +24,7 @@ end
 local function generate_stats(base_damage)
     local rarity = 1
 
-    for i = rarity, #rarities do
+    for i = rarity, #rarities - 1 do
         if math.random() < 0.3 then
             rarity = rarity + 1
         else
@@ -65,7 +65,7 @@ end
 
 function PickaxeGenerator.refresh_pickaxe(item)
     local meta = item:get_meta()
-    if item:get_name() == "mts_pickcrafting:pickaxe" and meta:get_string("pickaxe_dps") ~= nil then
+    if item:get_name() == "mts_pickcrafting:pickaxe" and meta:contains("pickaxe_dps") then
         local damage = Big.parse(meta:get_string("pickaxe_dps"))
         if damage ~= nil then
             meta:set_tool_capabilities(Pickaxes.get_tool_capabilities(damage))
