@@ -36,14 +36,14 @@ minetest.register_craftitem("mts_default:stick", {
 
 minetest.register_craftitem("mts_default:pebble", {
     description = "Pebble",
-    wield_image = "mts_default_pebble.png^[multiply:#707070",
-    inventory_image = "mts_default_pebble.png^[multiply:#707070",
+    wield_image = "mts_default_pebble.png",
+    inventory_image = "mts_default_pebble.png",
     stack_max = 9999
 })
 
 minetest.register_craftitem("mts_default:rock", {
     description = "Rock",
-    wield_image = "mts_default_rock.png^[multiply:#707070",
-    inventory_image = "mts_default_rock.png^[multiply:#707070",
+    wield_image = "mts_default_rock.png",
+    inventory_image = "mts_default_rock.png",
     stack_max = 9999
 })
