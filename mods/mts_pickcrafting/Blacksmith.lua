@@ -16,9 +16,6 @@ function Blacksmith.register_blacksmith()
         tiles = {"mts_pickcrafting_anvil.png"},
         paramtype = "light",
         sunlight_propagates = true,
-        on_punch = function (pos, node, puncher, pointed_thing)
-            Blacksmith.craft_pickaxe(puncher)
-        end,
         on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
             Blacksmith.show_formspec(clicker:get_player_name())
         end
