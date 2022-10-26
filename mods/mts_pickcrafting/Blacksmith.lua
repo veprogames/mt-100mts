@@ -14,6 +14,8 @@ function Blacksmith.register_blacksmith()
         drawtype = "mesh",
         mesh = "vortex_anvil.obj",
         tiles = {"mts_pickcrafting_anvil.png"},
+        paramtype = "light",
+        sunlight_propagates = true,
         on_punch = function (pos, node, puncher, pointed_thing)
             Blacksmith.craft_pickaxe(puncher)
         end,
