@@ -112,6 +112,7 @@ function Blacksmith.craft_pickaxe(player)
         local base_damage = Blacksmith.get_base_dps()
         local item = PickaxeGenerator.generate(base_damage)
         inv:add_item("main", item)
+        minetest.sound_play("craft", {pitch = 0.8 + 0.4 * math.random()})
     else
         minetest.chat_send_all(minetest.colorize("red", "Not enough Sticks!"))
     end
@@ -119,6 +120,7 @@ end
 
 function Blacksmith.absorb_inventory(player_name)
     local inv = minetest.get_inventory({type = "player", name = player_name})
+    local did_absorb_something = false
     if inv ~= nil then
         local items = inv:get_list("main")
         for k, item in pairs(items) do
@@ -127,11 +129,16 @@ function Blacksmith.absorb_inventory(player_name)
                 local idx = definition._blacksmith_multiplier_id
                 Blacksmith.data.multipliers[idx] = (Blacksmith.data.multipliers[idx] or 1) + item:get_count() * 0.01
                 inv:remove_item("main", item)
+                did_absorb_something = true
             elseif definition._blacksmith_power_id ~= nil then
                 local idx = definition._blacksmith_power_id
                 Blacksmith.data.powers[idx] = (Blacksmith.data.powers[idx] or 1) + item:get_count() * 0.001
                 inv:remove_item("main", item)
+                did_absorb_something = true
             end
+        end
+        if did_absorb_something then
+            minetest.sound_play("absorb")
         end
         Blacksmith.save()
     end

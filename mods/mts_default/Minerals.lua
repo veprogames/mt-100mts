@@ -18,6 +18,9 @@ function Minerals.register_stone(tier)
         description = "Stone Lv. "..tier,
         tiles = {"mts_default_stone.png"},
         groups = {cracky = tier},
+        sounds = {
+            dig = {name = "stone", gain = 0.3}
+        },
         drop = {
             items = {
                 {items = {"mts_default:pebble"}}
@@ -57,6 +60,9 @@ function Minerals.register_mineral(definition)
         tiles = {definition.block_image},
         groups = {cracky=tier},
         drop = mineral_item_id,
+        sounds = {
+            dig = {name = "stone", gain = 0.3}
+        },
         after_dig_node = function (pos, oldnode, oldmeta, digger)
             local name = digger:get_player_name()
             local meta = digger:get_meta()
