@@ -2,11 +2,11 @@ Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 PickaxeGenerator = dofile(minetest.get_modpath("mts_pickcrafting").."/PickaxeGenerator.lua")
 Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 
-local storage = minetest.get_mod_storage()
-
 Blacksmith = {
     data = {}
 }
+
+Blacksmith.storage = Blacksmith.storage or minetest.get_mod_storage() -- make sure storage is only registered once
 
 function Blacksmith.register_blacksmith()
     minetest.register_node("mts_pickcrafting:blacksmith", {
@@ -165,11 +165,11 @@ function Blacksmith.get_base_dps()
 end
 
 function Blacksmith.load()
-    Blacksmith.data = minetest.deserialize(storage:get_string("mts_blacksmith"), true) or Blacksmith.init_storage()
+    Blacksmith.data = minetest.deserialize(Blacksmith.storage:get_string("mts_blacksmith"), true) or Blacksmith.init_storage()
 end
 
 function Blacksmith.save()
-    storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
+    Blacksmith.storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
 end
 
 Blacksmith.data = Blacksmith.init_storage()
