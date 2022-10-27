@@ -1,11 +1,17 @@
--- need to store setting to restore it later
-local time_speed = minetest.settings:get("time_speed") or 72
-minetest.settings:set("time_speed", 0)
--- this has nothing to do with player joining, but needs to be delayed until the world is active
-minetest.register_on_joinplayer(function()
-	minetest.set_timeofday(0.5)
-end)
--- restore time_speed, so we don't mess up other games
-minetest.register_on_shutdown(function()
-	minetest.settings:set("time_speed", time_speed)
+-- override into a double sun system with permanent daylight
+-- in contrast to changing time_scale, this doesn't mess with other games if the time_scale wasn't reverted on unexpected player leave
+-- there is no way to extensively alter celestial bodies yet (e. g. changing sky coordinates manually)
+minetest.register_on_joinplayer(function(player)
+	player:set_stars({
+		visible = false
+	})
+	player:set_sun({
+		sunrise_visible = false,
+		texture = "sun.png"
+	})
+	player:set_moon({
+		texture = "sun.png",
+		scale = 1.57
+	})
+	player:override_day_night_ratio(1)
 end)
