@@ -47,8 +47,10 @@ function Blacksmith.create_formspec()
     local y = 0
     for k, v in pairs(mult_keys) do
         local mult = Blacksmith.data.multipliers[v]
+        local mineral_name = (minetest.registered_nodes["mts_default:mineral"..v] or {description = "Unknown"}).description
         text_mults = text_mults ..
             string.format("item_image[%d,%d;1,1;mts_default:mineral_item%d]", x, y, v)..
+            string.format("tooltip[%d,%d;1,1;%s]", x, y, mineral_name)..
             string.format("label[%f,%f;x%.2f]", x + 1.25, y + 0.5, mult)
         x = x + 4
         if x > 4 then
@@ -72,7 +74,7 @@ Punch the Blacksmith to craft a Pickaxe for 1 Stick. Pickaxes will deal at least
 
 Every Mineral Drop adds +0.01 to their Multiplier.]]
 
-    local scroll_height = math.max(0, 6 * #mult_keys - 80)
+    local scroll_height = math.max(0, 6 * #mult_keys - 60)
 
     return "formspec_version[6]"..
         "size[16,9]"..
