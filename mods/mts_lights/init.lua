@@ -1,5 +1,5 @@
 local sound_def = {
-    dig = {name = "stone", gain = 0.3}
+    dig = "stone"
 }
 
 minetest.register_node("mts_lights:active_coal", {

@@ -10,7 +10,7 @@ minetest.register_node("mts_default:grass", {
     },
     groups = {crumbly = 1},
     sounds = {
-        dig = {name = "dirt", gain = 0.3, pitch = 1.2}
+        dig = {name = "dirt", pitch = 1.2}
     },
     drop = {}
 })
@@ -20,7 +20,7 @@ minetest.register_node("mts_default:dirt", {
     tiles = {"mts_default_dirt.png"},
     groups = {crumbly = 1},
     sounds = {
-        dig = {name = "dirt", gain = 0.3}
+        dig = "dirt"
     },
     drop = {}
 })
@@ -30,7 +30,7 @@ minetest.register_node("mts_default:wood", {
     tiles = {"mts_default_wood.png"},
     groups = {choppy = 1},
     sounds = {
-        dig = {name = "wood", gain = 0.3}
+        dig = "wood"
     },
     drop = {
         items = {
