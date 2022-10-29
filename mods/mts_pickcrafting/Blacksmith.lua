@@ -2,11 +2,11 @@ Big = dofile(minetest.get_modpath("mts_bignumber").."/bignumber.lua")
 PickaxeGenerator = dofile(minetest.get_modpath("mts_pickcrafting").."/PickaxeGenerator.lua")
 Formatter = dofile(minetest.get_modpath("mts_formatter").."/Formatter.lua")
 
-local storage = minetest.get_mod_storage()
-
 Blacksmith = {
     data = {}
 }
+
+Blacksmith.storage = Blacksmith.storage or minetest.get_mod_storage() -- make sure storage is only registered once
 
 function Blacksmith.register_blacksmith()
     minetest.register_node("mts_pickcrafting:blacksmith", {
@@ -14,9 +14,8 @@ function Blacksmith.register_blacksmith()
         drawtype = "mesh",
         mesh = "vortex_anvil.obj",
         tiles = {"mts_pickcrafting_anvil.png"},
-        on_punch = function (pos, node, puncher, pointed_thing)
-            Blacksmith.craft_pickaxe(puncher)
-        end,
+        paramtype = "light",
+        sunlight_propagates = true,
         on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
             Blacksmith.show_formspec(clicker:get_player_name())
         end
@@ -48,8 +47,10 @@ function Blacksmith.create_formspec()
     local y = 0
     for k, v in pairs(mult_keys) do
         local mult = Blacksmith.data.multipliers[v]
+        local mineral_name = (minetest.registered_nodes["mts_default:mineral"..v] or {description = "Unknown"}).description
         text_mults = text_mults ..
             string.format("item_image[%d,%d;1,1;mts_default:mineral_item%d]", x, y, v)..
+            string.format("tooltip[%d,%d;1,1;%s]", x, y, mineral_name)..
             string.format("label[%f,%f;x%.2f]", x + 1.25, y + 0.5, mult)
         x = x + 4
         if x > 4 then
@@ -73,10 +74,11 @@ Punch the Blacksmith to craft a Pickaxe for 1 Stick. Pickaxes will deal at least
 
 Every Mineral Drop adds +0.01 to their Multiplier.]]
 
-    local scroll_height = math.max(0, 6 * #mult_keys - 80)
+    local scroll_height = math.max(0, 6 * #mult_keys - 60)
 
     return "formspec_version[6]"..
         "size[16,9]"..
+        "background[0,0;16,9;mts_pickcrafting_bg.png]"..
         string.format("textarea[11,1;4.8,5;;;%s]", description)..
         string.format("scrollbaroptions[max=%d;arrows=hide]", scroll_height)..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
@@ -109,6 +111,7 @@ function Blacksmith.craft_pickaxe(player)
         local base_damage = Blacksmith.get_base_dps()
         local item = PickaxeGenerator.generate(base_damage)
         inv:add_item("main", item)
+        minetest.sound_play("craft", {pitch = 0.8 + 0.4 * math.random()})
     else
         minetest.chat_send_all(minetest.colorize("red", "Not enough Sticks!"))
     end
@@ -116,6 +119,7 @@ end
 
 function Blacksmith.absorb_inventory(player_name)
     local inv = minetest.get_inventory({type = "player", name = player_name})
+    local did_absorb_something = false
     if inv ~= nil then
         local items = inv:get_list("main")
         for k, item in pairs(items) do
@@ -124,11 +128,16 @@ function Blacksmith.absorb_inventory(player_name)
                 local idx = definition._blacksmith_multiplier_id
                 Blacksmith.data.multipliers[idx] = (Blacksmith.data.multipliers[idx] or 1) + item:get_count() * 0.01
                 inv:remove_item("main", item)
+                did_absorb_something = true
             elseif definition._blacksmith_power_id ~= nil then
                 local idx = definition._blacksmith_power_id
                 Blacksmith.data.powers[idx] = (Blacksmith.data.powers[idx] or 1) + item:get_count() * 0.001
                 inv:remove_item("main", item)
+                did_absorb_something = true
             end
+        end
+        if did_absorb_something then
+            minetest.sound_play("absorb")
         end
         Blacksmith.save()
     end
@@ -162,11 +171,11 @@ function Blacksmith.get_base_dps()
 end
 
 function Blacksmith.load()
-    Blacksmith.data = minetest.deserialize(storage:get_string("mts_blacksmith"), true) or Blacksmith.init_storage()
+    Blacksmith.data = minetest.deserialize(Blacksmith.storage:get_string("mts_blacksmith"), true) or Blacksmith.init_storage()
 end
 
 function Blacksmith.save()
-    storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
+    Blacksmith.storage:set_string("mts_blacksmith", minetest.serialize(Blacksmith.data))
 end
 
 Blacksmith.data = Blacksmith.init_storage()

@@ -3,6 +3,9 @@ minetest.register_node("mts_powercrystals:crystal_block", {
     tiles = {"power_crystal_block.png"},
     drop = "mts_powercrystals:crystal",
     light_source = 3,
+    sounds = {
+        dig = "crystal"
+    },
     groups = {
         powercrystalline = 1
     }

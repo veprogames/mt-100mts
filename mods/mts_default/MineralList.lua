@@ -39,7 +39,7 @@ MineralList = {
         name = "Amber",
         item_name = "Rock",
         block_image = "mts_default_stone.png^(mts_default_ore_2.png^[multiply:#fc4503)",
-        item_image = "mts_default_rock.png^[multiply:#fc4503"
+        item_image = "mts_default_jewel.png^[multiply:#fc4503"
     },
     [9] = gem("Citrine", "#b3a727"),
     [10] = metal("Gold", "#ffff00"),
