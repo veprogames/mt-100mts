@@ -57,6 +57,9 @@ minetest.register_node("mts_teleporters:inactive", {
 	description = "Telporter",
 	tiles = {"mts_teleporters_inactive.png"},
 	groups = {teleportey = 1},
+	sounds = {
+		dig = {name = "teleporter", pitch = 1.4}
+	},
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 		-- store position in player meta, so it doesn't have to be passed through the formspec
 		local p_meta = clicker:get_meta()
