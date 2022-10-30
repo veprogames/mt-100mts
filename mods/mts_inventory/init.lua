@@ -1,35 +1,40 @@
 Tutorial = dofile(minetest.get_modpath("mts_inventory").."/Tutorial.lua")
-
-local inventory_formspec = ""
-	.. "formspec_version[6]"
-	.. "size[10.75,9.5]"
-	.. "listcolors[#77777700;#00000020;#0000;#779;#fff]"
-	.. "container[0.5,0.5]"
-	.. "container[3.75,0]"
-	.. "list[current_player;craft;0,0;3,3;]"
-	.. "list[current_player;craftpreview;5,1.25;1,1;]"
-	.. "container_end[]"
-	.. "list[current_player;main;0,3.75;8,4;]"
-	.. "listring[current_player;main]"
-	.. "listring[current_player;craft]"
-	.. "container_end[]"
-	.. "button[1,1;2,1;inventory_tutorial;Tutorial]"
-	.. "bgcolor[;neither;]"
-	.. "background[0,0;10.75,9.5;mts_inventory_inventory.png;false]"
+Credits = dofile(minetest.get_modpath("mts_inventory").."/Credits.lua")
 
 minetest.register_on_joinplayer(function(player, last_login)
-	player:hud_set_hotbar_image("mts_inventory_hotbar.png")
-	player:hud_set_hotbar_selected_image("mts_inventory_hotbar_selected.png")
-	player:set_inventory_formspec(inventory_formspec)
+	i3.new_tab("mts_inventory:tutorial", {
+		description = "Tutorial",
+
+		formspec = function (player, data, fs)
+			fs(Tutorial.get_formspec())
+		end
+	})
+
+	i3.new_tab("mts_inventory:credits", {
+		description = "Credits",
+
+		formspec = function (player, data, fs)
+			fs(Credits.get_formspec())
+		end
+	})
+
+	local nums = {}
+	for i = 2, 100 do nums[#nums + 1] = tostring(i) end
+	i3.compress("mts_default:stone1", {
+		replace = "1",
+		by = nums
+	})
+	i3.compress("mts_default:mineral1", {
+		replace = "1",
+		by = nums
+	})
+	i3.compress("mts_default:mineral_item1", {
+		replace = "1",
+		by = nums
+	})
 end)
 
 minetest.register_on_newplayer(function(player)
 	minetest.chat_send_player(player:get_player_name(),
 		"Welcome to 100 Minerals to Success! Click "..minetest.colorize("#00ff00", "Tutorial").." in your inventory for an introduction")
-end)
-
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if fields.inventory_tutorial then
-		Tutorial.show_formspec(player)
-	end
 end)
