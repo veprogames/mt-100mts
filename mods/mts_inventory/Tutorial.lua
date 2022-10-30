@@ -11,7 +11,6 @@ Avoid dying, as it will erase all minerals that are currently in your inventory]
     minetest.show_formspec(player:get_player_name(), "mts_inventory:tutorial",
     "formspec_version[6]"..
     "size[10.75,9.5]"..
-    "background[0,0;10.75,9.5;mts_inventory_tutorial.png]"..
     "style_type[label;font_size=*2;textcolor=#00ff00]"..
     "label[1,1;Tutorial]"..
     "style_type[label;font_size=*1]"..
