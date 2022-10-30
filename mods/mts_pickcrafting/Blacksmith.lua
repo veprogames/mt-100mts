@@ -78,7 +78,6 @@ Every Mineral Drop adds +0.01 to their Multiplier.]]
 
     return "formspec_version[6]"..
         "size[16,9]"..
-        "background[0,0;16,9;mts_pickcrafting_bg.png]"..
         string.format("textarea[11,1;4.8,5;;;%s]", description)..
         string.format("scrollbaroptions[max=%d;arrows=hide]", scroll_height)..
         "scrollbar[10,1;0.4,7;vertical;scroll_mult;]"..
